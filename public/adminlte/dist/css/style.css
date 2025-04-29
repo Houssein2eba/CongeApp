@@ -1,0 +1,38 @@
+.container {
+    font-family: Arial, sans-serif;
+    background: url('path/to/image.jpg') center/cover no-repeat,linear-gardient(45deg,#0099ff,#6a11cb);
+    
+    
+}
+
+.container-fluid {
+    padding: 50px 20px;
+}
+
+h1.display-4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+p.lead {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-light:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.btn-success:hover {
+    background-color: #28a745;
+    color: #fff;
+}
