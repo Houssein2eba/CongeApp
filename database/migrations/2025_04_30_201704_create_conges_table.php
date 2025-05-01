@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('conges', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('registration_number');
             $table->string('type');
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motif')->nullable();
             $table->string('statut')->default('En attente');
             $table->timestamps();
-            $table->foreign('registration_number')->references('registration_number')->on('employes')->onDelete('cascade');
-            
+            $table->foreignId('user_id')
+            ->constrained('users')->onDelete('cascade');
         });
     }
 

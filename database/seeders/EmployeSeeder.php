@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Employe;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use App\Models\Departement;
 class EmployeSeeder extends Seeder
 {
     /**
@@ -12,6 +15,33 @@ class EmployeSeeder extends Seeder
      */
     public function run()
     {
-        Employe::factory(10)->create();
+        $departement = Departement::create([
+            'name' => 'Math',
+        ]);
+        $departement = Departement::create([
+            'name' => 'Physics',
+        ]);
+        $departement = Departement::create([
+            'name' => 'Chemistry',
+        ]);
+      $user=  User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('0000'),
+            'registration_number' => '1234567890',
+            'hire_date' => '2021-01-01',
+
+            'phone' => '1234567890',
+            'address' => 'Admin',
+            'city' => 'Nktt',
+        ]);
+        $roles = [
+            ['name' => 'admin'],
+            ['name' => 'employee'],
+        ];
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
+        $user->assignRole('admin');
     }
 }

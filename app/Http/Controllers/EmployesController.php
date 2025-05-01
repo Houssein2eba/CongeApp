@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Employe;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
-
-
+use App\Models\Departement;
+use App\Models\User;
 
 class EmployesController extends Controller
 {
@@ -14,47 +14,27 @@ class EmployesController extends Controller
      */
     public function index()
     {
-        $employes=Employe::all();
-        return view('employes.index')->with([
-            'employes'=>$employes
-        ]);
+        $employes=User::with(['departement','roles','conges'])->whereHas('roles',function($query){$query->where('name','employee');})->get();
+        
+        return view('employes.index',compact('employes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+
         return view('employes.create');
-        
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $validatedData =$request->validate([
-            'registration_number'=>'required|numeric|unique:employes,registration_number',
-            'fullname'=>'required',
-            'departement'=>'required',
-            'hire_date'=>'required',
-            'phone'=>'required',
-            'address'=>'required',
-            'city'=>'required',
-        ]);
-        // creer et enregistrer employe
-        Employe:: create($request->except('_token'));
-        return redirect()->route('employes.index')->with([
-            'success' =>'Employé ajouté avec succsè '
-        ]);
-    }
-        
-    
+
+
+
 
     // rediriger ou retourner reponse
-    
+
 
     /**
      * Display the specified resource.
@@ -65,7 +45,7 @@ class EmployesController extends Controller
         $employe =Employe::where('registration_number',$id)->first();
         return view('employes.show')->with([
             'employe' =>$employe
-        
+
         ]);
 
     }
@@ -79,7 +59,7 @@ class EmployesController extends Controller
         $employe =Employe::where('registration_number',$id)->first();
         return view('employes.edit')->with([
             'employe' =>$employe
-        
+
         ]);
 
     }
@@ -113,7 +93,7 @@ class EmployesController extends Controller
     public function destroy( $id)
     {
         //
-     
+
         $employe=Employe::where('registration_number',$id)->first();
         $employe->delete();
         return redirect()->route('employes.index')->with([
