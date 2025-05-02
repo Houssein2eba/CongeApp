@@ -50,19 +50,19 @@
                                         <td>{{ $employe->city }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <a href="{{ route('employes.show', $employe->registration_number) }}"
+                                                <a href="{{ route('employes.show', $employe->id) }}"
                                                    class="btn btn-sm btn-primary">
                                                    <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('employes.edit', $employe->registration_number) }}"
+                                                <a href="{{ route('employes.edit', $employe->id) }}"
                                                    class="btn btn-sm btn-warning mx-2">
                                                    <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form id="{{ $employe->registration_number }}" action="{{ route('employes.destroy', $employe->registration_number) }}" method="post">
+                                                <form id="{{ $employe->id }}" action="{{ route('employes.destroy', $employe->id) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
-                                                <button class="btn btn-sm btn-danger" onclick="deleteEmp('{{ $employe->registration_number }}')">
+                                                <button class="btn btn-sm btn-danger" onclick="deleteEmp('{{ $employe->id }}')">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
