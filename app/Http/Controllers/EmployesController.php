@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use App\Models\Departement;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class EmployesController extends Controller
 {
@@ -15,7 +16,7 @@ class EmployesController extends Controller
     public function index()
     {
         $employes=User::with(['departement','roles','conges'])->whereHas('roles',function($query){$query->where('name','employee');})->get();
-        
+
         return view('employes.index',compact('employes'));
     }
 
@@ -54,9 +55,21 @@ class EmployesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+<<<<<<< HEAD
     public function edit($id)
 {
     $employe = Employe::find($id);
+=======
+    public function edit( $id)
+    {
+        //
+        $employe =User::with(['departement','roles'])->findOrFail($id);
+        $departements = Departement::select('id','name')->get();
+        return view('employes.edit')->with([
+            'employe' =>$employe,
+            'departements' =>$departements
+        ]);
+>>>>>>> 17a645f5f66145b78d701992b90ab4d8ba567209
 
     if (!$employe) {
         return redirect()->route('employes.index')->with('error', 'Employé introuvable.');
@@ -72,20 +85,32 @@ class EmployesController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $employe=Employe::where('registration_number',$id)->first();
-        $validatedData =$request->validate([
-            'registration_number'=>'required|numeric|unique:employes,id,'.$employe->registration_number,
-            'fullname'=>'required',
-            'departement'=>'required',
-            'hire_date'=>'required',
-            'phone'=>'required',
-            'address'=>'required',
-            'city'=>'required',
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'registration_number' => 'required|string|max:255',
+            'departement_id' => 'required|integer|exists:departements,id',
+            'city' => 'required|string|max:255',
+            'phone' => 'required|string|regex:/^[2-4][0-9]{7}$/',
         ]);
-        // creer et enregistrer employe
-        $employe->update($request->except('_token','_method'));
+        DB::beginTransaction();
+        $employe = User::findOrFail($id);
+        $departement = Departement::findOrFail($request->departement_id);
+        $employe->departement()->associate($departement);
+        $employe->update([
+            'name' => $request->name,
+            'adress' => $request->address,
+            'registration_number' => $request->registration_number,
+            'city' => $request->city,
+            'hire_date' => $request->hire_date,
+            'phone' => $request->phone,
+
+        ]);
+        DB::commit();
+
         return redirect()->route('employes.index')->with([
-            'success' =>'Employé modifié avec succsè '
+            'success' => 'Employé modifié avec succès'
         ]);
     }
 

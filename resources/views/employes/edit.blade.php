@@ -10,7 +10,7 @@
 
 @section('content_header')
 
-   <h1>Modifir un employe</h1> 
+   <h1>Modifir un employe</h1>
 
 @endsection
 
@@ -26,6 +26,7 @@
                         </div>
                     </div>
                     <div class="card-body">
+<<<<<<< HEAD
                         @if(isset($employe))
                         <form action="{{ route('employes.update', $employe->registration_number) }}" method="POST" class="mt-3">
                             @csrf
@@ -40,6 +41,9 @@
                     @else
                         <div class="alert alert-danger text-center">الموظف غير موجود</div>
                     @endif
+=======
+                         <form action="{{route('employes.update',$employe->id)}}"
+>>>>>>> 17a645f5f66145b78d701992b90ab4d8ba567209
                               method="POST" class="mt-3">
                               @csrf
                               @method('PUT')
@@ -48,42 +52,54 @@
                                 <input type="text" class="form-control"
                                 name="registration_number" placeholder="registration_number"
                                 value="{{old('registration_number',$employe->registration_number)}}">
+                                <span class="text-danger">{{$errors->first('registration_number')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="fullname">FullName</label>
                                 <input type="text" class="form-control"
-                                name="fullname" placeholder="Fullname"
-                                value="{{old('fullname',$employe->fullname)}}">
+                                name="name" placeholder="Fullname"
+                                value="{{old('fullname',$employe->name)}}">
+                                <span class="text-danger">{{$errors->first('name')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="departement">Departement</label>
-                                <input type="text" class="form-control"
-                                name="departement" placeholder="Departement"
-                                value="{{old('departement',$employe->departement)}}">
+                                <select name="departement_id" class="form-control">
+                                    @foreach ($departements as $departement)
+                                        <option value="{{$departement->id}}"
+                                            @if($employe->departement->id == $departement->id) selected @endif>
+                                            {{$departement->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger">{{$errors->first('departement_id')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="hire_date">Hire_date</label>
                                 <input type="date" class="form-control"
                                 name="hire_date" placeholder="Hire_date"
                                 value="{{old('hire_date',$employe->hire_date)}}">
+                                <span class="text-danger">{{$errors->first('hire_date')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="phone">Phone</label>
                                 <input type="tel" class="form-control"
                                 name="phone" placeholder="phone"
                                 value="{{old('phone',$employe->phone)}}">
+                                <span class="text-danger">{{$errors->first('phone')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="address">Address</label>
                                 <input type="text" class="form-control"
                                 name="address" placeholder="address"
                                 value="{{old('address',$employe->address)}}">
+                                <span class="text-danger">{{$errors->first('address')}}</span>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="city">City</label>
                                 <input type="text" class="form-control"
                                 name="city" placeholder="city"
                                 value="{{old('city',$employe->city)}}">
+                                <span class="text-danger">{{$errors->first('city')}}</span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
@@ -91,15 +107,15 @@
                                 </button>
                             </div>
 
-                            
-                            
-                            
+
+
+
 
 
                         </form>
                     </div>
-                    
-                
+
+
                 </div>
             </div>
         </div>
