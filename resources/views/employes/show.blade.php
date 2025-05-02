@@ -22,7 +22,11 @@
                 <div class="card my-5">
                     <div class="card-header">
                         <div class="text-center font-weight-bold text-uppercase">
-                            <h4>{{$employe->fullname}}</h4>
+                           /@if(isset($employe))                         
+                                <h4>{{$employe->fullname}}</h4>
+                            @else
+                                <h4>الموظف غير موجود</h4>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">

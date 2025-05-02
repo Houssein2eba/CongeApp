@@ -39,30 +39,32 @@ class EmployesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-        $employe =Employe::where('registration_number',$id)->first();
-        return view('employes.show')->with([
-            'employe' =>$employe
+    
+     public function show($id){
+    $employe = Employe::find($id);
 
-        ]);
-
+    if (!$employe) {
+        return redirect()->route('employes.index')->with('error', 'Employé introuvable');
     }
+
+    return view('employes.show', compact('employe'));
+}
+   
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-        $employe =Employe::where('registration_number',$id)->first();
-        return view('employes.edit')->with([
-            'employe' =>$employe
+    public function edit($id)
+{
+    $employe = Employe::find($id);
 
-        ]);
-
+    if (!$employe) {
+        return redirect()->route('employes.index')->with('error', 'Employé introuvable.');
     }
+
+    return view('employes.edit', compact('employe'));
+}
+
 
     /**
      * Update the specified resource in storage.

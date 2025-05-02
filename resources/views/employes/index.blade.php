@@ -11,9 +11,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="mt-5">
-            <div class="col-md-10 mx-auto">
+            <div class="col-md-12 mx-auto">
                 <div class="card my-5">
                     <div class="card-header">
                         <div class="text-center font-weight-bold text-uppercase">
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" >
                             <table id="myTable" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -84,6 +84,7 @@
         $(document).ready(function(){
             $('#myTable').DataTable({
                 dom: 'Bfrtip',
+                
                 buttons: [
                     'copy', 'excel', 'csv', 'pdf', 'print', 'colvis'
                 ],
