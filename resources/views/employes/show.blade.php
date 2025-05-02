@@ -10,7 +10,7 @@
 
 @section('content_header')
 
-   <h3>Afficher un employe </h3> 
+   <h3>Afficher un employe </h3>
 
 @endsection
 
@@ -26,52 +26,59 @@
                         </div>
                     </div>
                     <div class="card-body">
-                              <div class="form-group mb-3">
-                                <label for="registration_number">Registration_number</label>
-                                <input type="text" disabled class="form-control rounded-0"
-                                name="registration_number" placeholder="registration_number"
-                                value="{{$employe->registration_number}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="fullname">Nom Complet</label>
-                                <input type="text" disabled class="form-control rounded-0"
-                                name="fullname" placeholder="Nom Complet"
-                                value="{{$employe->fullname}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="departement">Departement</label>
-                                <input type="text" disabled class="form-control rounded-0"
-                                name="departement" placeholder="Departement"
-                                value="{{$employe->departement}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="hire_date">Date_embauche</label>
-                                <input type="date" disabled class="form-control rounded-0"
-                                name="hire_date" placeholder="Date_embauche"
-                                value="{{$employe->hire_date}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="phone">Phone</label>
-                                <input type="tel" disabled class="form-control rounded-0"
-                                name="phone" placeholder="phone"
-                                value="{{$employe->phone}}">
-                                {{--
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="address">Address</label>
-                                <input type="text" disabled class="form-control rounded-0"
-                                name="address" placeholder="address"
-                                value="{{$employe->address}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="city">City</label>
-                                <input type="text" disabled class="form-control rounded-0"
-                                name="city" placeholder="city"
-                                value="{{$employe->city}}">
-                            </div>
-                            
-                        --}}
-                
+                        <table class="table">
+                            <tr>
+                                <th>Registration_number</th>
+                                <td>{{$employe->registration_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>FullName</th>
+                                <td>{{$employe->name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Departement</th>
+                                <td>{{$employe->departement->name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Hire_date</th>
+                                <td>{{$employe->hire_date}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{$employe->email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{$employe->phone}}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{$employe->address}}</td>
+                            </tr>
+                            <tr>
+                                <th>City</th>
+                                <td>{{$employe->city}}</td>
+                            </tr>
+                            <tr>
+                                <th>Actions</th>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a href="{{ route('employes.edit', $employe->id) }}"
+                                           class="btn btn-sm btn-warning mx-2">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('employes.destroy', $employe->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
                 </div>
             </div>
         </div>

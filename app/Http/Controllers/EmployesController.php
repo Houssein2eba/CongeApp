@@ -43,7 +43,7 @@ class EmployesController extends Controller
     public function show(string $id)
     {
         //
-        $employe =Employe::where('registration_number',$id)->first();
+        $employe =User::with(['departement','roles'])->findOrFail($id);
         return view('employes.show')->with([
             'employe' =>$employe
 
@@ -108,7 +108,7 @@ class EmployesController extends Controller
     {
         //
 
-        $employe=Employe::where('registration_number',$id)->first();
+        $employe=User::findOrFail($id);
         $employe->delete();
         return redirect()->route('employes.index')->with([
            'success' =>'Employé supprimé avec succsè '
