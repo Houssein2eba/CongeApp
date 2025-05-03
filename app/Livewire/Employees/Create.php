@@ -27,6 +27,7 @@ class Create extends Component
         'phone' => 'required|regex:/^[2-4][0-9]{7}$/',
         'address' => 'required|string|max:255',
         'city' => 'required|string|max:255',
+        'image'=>'required|image|max:2048',
     ];
     public $departements=[];
 
@@ -40,9 +41,12 @@ class Create extends Component
         $this->validate();
 
         DB::transaction(function () {
+        $url = asset('storage/' . $this->file('image')->store('images', 'public'));
+
             $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
+                'image'=> $url,
                 'password' => bcrypt($this->password),
                 'registration_number' => $this->registration_number,
                 'hire_date' => $this->hire_date,

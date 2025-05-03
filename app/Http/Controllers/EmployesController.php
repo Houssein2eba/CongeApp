@@ -40,19 +40,18 @@ class EmployesController extends Controller
     /**
      * Display the specified resource.
      */
-    
-     public function show(string $id)
-     {
-         //
-         $employe =Employe::where('registration_number',$id)->first();
-         $employe =User::with(['departement','roles'])->findOrFail($id);
-         return view('employes.show')->with([
-             'employe' =>$employe
- 
-         ]);
- 
-     }
-    
+
+    public function show(string $id)
+    {
+        //
+        $employe =User::with(['departement','roles'])->findOrFail($id);
+        return view('employes.show')->with([
+            'employe' =>$employe
+
+        ]);
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -119,24 +118,15 @@ class EmployesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id){
-
-    // Recherche de l'employé par son numéro d'enregistrement
-        $employe = Employe::where('id', $id)->first();
-
-    // Si l'employé n'est pas trouvé, redirection avec un message d'erreur
-    if (!$employe) {
-        return redirect()->route('employes.index')->with([
-            'error' => 'Employé non trouvé.'
+    public function destroy( $id)
+     {
+         //
+ 
+         $employe=Employe::where('registration_number',$id)->first();
+         $employe=User::findOrFail($id);
+         $employe->delete();
+         return redirect()->route('employes.index')->with([
+            'success' =>'Employé supprimé avec succsè '
         ]);
-    }
-
-    // Suppression de l'employé
-    $employe->delete();
-
-    // Redirection avec un message de succès
-    return redirect()->route('employes.index')->with([
-        'success' => 'Employé supprimé avec succès.'
-    ]);
-    }
-}
+     }
+ }

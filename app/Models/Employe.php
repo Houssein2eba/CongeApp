@@ -15,18 +15,19 @@ class Employe extends Model
         'hire_date',
         'phone',
         'address',
+        'image',
         'city',
-        
+
     ];
     protected $casts = [
         'hire_date' => 'datetime',
     ];
-    
+
     public function getHireDateForHumansAttribute()
     {
         return optional($this->hire_date)->diffForHumans();
     }
-    
+
     public function getFormattedHireDateAttribute()
     {
         return optional($this->hire_date)->format('d/m/Y');
