@@ -38,9 +38,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($employes as $employe)
+                                    @foreach ($employes as $index=> $employe)
                                     <tr>
-                                        <td>{{ $employe->registration_number }}</td>
+                                        <td>{{ $index +1 }}</td>
                                         <td>{{ $employe->name }}</td>
                                         <td>{{ $employe->departement->name }}</td>
                                         <td>{{ $employe->hire_date }}</td>

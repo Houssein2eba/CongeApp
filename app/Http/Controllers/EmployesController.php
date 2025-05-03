@@ -41,25 +41,27 @@ class EmployesController extends Controller
      * Display the specified resource.
      */
     
-     public function show($id){
-    $employe = Employe::find($id);
-
-    if (!$employe) {
-        return redirect()->route('employes.index')->with('error', 'Employé introuvable');
-    }
-
-    return view('employes.show', compact('employe'));
-}
-   
+     public function show(string $id)
+     {
+         //
+         $employe =Employe::where('registration_number',$id)->first();
+         $employe =User::with(['departement','roles'])->findOrFail($id);
+         return view('employes.show')->with([
+             'employe' =>$employe
+ 
+         ]);
+ 
+     }
+    
 
     /**
      * Show the form for editing the specified resource.
      */
-<<<<<<< HEAD
-    public function edit($id)
-{
-    $employe = Employe::find($id);
-=======
+
+    //public function edit($id)
+//{
+   // $employe = Employe::find($id);
+
     public function edit( $id)
     {
         //
@@ -69,7 +71,7 @@ class EmployesController extends Controller
             'employe' =>$employe,
             'departements' =>$departements
         ]);
->>>>>>> 17a645f5f66145b78d701992b90ab4d8ba567209
+
 
     if (!$employe) {
         return redirect()->route('employes.index')->with('error', 'Employé introuvable.');
@@ -117,14 +119,24 @@ class EmployesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
-    {
-        //
+    public function destroy($id){
 
-        $employe=Employe::where('registration_number',$id)->first();
-        $employe->delete();
+    // Recherche de l'employé par son numéro d'enregistrement
+        $employe = Employe::where('id', $id)->first();
+
+    // Si l'employé n'est pas trouvé, redirection avec un message d'erreur
+    if (!$employe) {
         return redirect()->route('employes.index')->with([
-           'success' =>'Employé supprimé avec succsè '
-       ]);
+            'error' => 'Employé non trouvé.'
+        ]);
+    }
+
+    // Suppression de l'employé
+    $employe->delete();
+
+    // Redirection avec un message de succès
+    return redirect()->route('employes.index')->with([
+        'success' => 'Employé supprimé avec succès.'
+    ]);
     }
 }

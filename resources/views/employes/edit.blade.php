@@ -26,24 +26,24 @@
                         </div>
                     </div>
                     <div class="card-body">
-<<<<<<< HEAD
+
                         @if(isset($employe))
                         <form action="{{ route('employes.update', $employe->registration_number) }}" method="POST" class="mt-3">
                             @csrf
-                            @method('PUT')
+                            @method('PUT'){{--
                             <div class="form-group mb-3">
                                 <label for="registration_number">Registration Number</label>
                                 <input type="text" disabled class="form-control rounded-0"
                                 name="registration_number" placeholder="registration_number"
                                 value="{{ $employe->registration_number }}">
-                            </div>
+                            </div>--}}
                         </form>
                     @else
                         <div class="alert alert-danger text-center">الموظف غير موجود</div>
                     @endif
-=======
+
                          <form action="{{route('employes.update',$employe->id)}}"
->>>>>>> 17a645f5f66145b78d701992b90ab4d8ba567209
+
                               method="POST" class="mt-3">
                               @csrf
                               @method('PUT')
