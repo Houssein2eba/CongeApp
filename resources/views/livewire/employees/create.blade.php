@@ -77,7 +77,9 @@
                                 @error('city') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
+
                                 <button type="submit" class="btn btn-primary">
+                                    <span wire:loading wire:target="store" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     Submit
                                 </button>
                             </div>
