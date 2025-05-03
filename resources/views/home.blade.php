@@ -8,7 +8,7 @@
 
 @section('content_header')
 
-   <h1>Tableau de bord</h1> 
+   <h1>Tableau de bord</h1>
 
 @endsection
 
@@ -18,7 +18,7 @@
             <div class="col-md-4">
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>{{\App\Models\Employe::count()}}</h3>
+                        <h3>{{$stats['total_employees']}}</h3>
                         <p>Employes</p>
                     </div>
                     <div class="icon">
@@ -27,11 +27,30 @@
                     </div>
                     <a href="{{url('admin/employes')}}" class="small-box-footer">
                         Voir plus <i class="fas fa-arrow-circle-right"></i>
-                    
+
                     </a>
 
-                    
+
                 </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{$stats['total_departments']}}</h3>
+                        <p>Departements</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-building"></i>
+
+                    </div>
+                    <a href="{{url('admin/departements')}}" class="small-box-footer">
+                        Voir plus <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\EmployesController;
@@ -10,9 +11,7 @@ Route::get('/',function(){
 Route::get('/employes',[EmployesController::class,'index']);
 Route::get('/employes/create',[EmployesController::class,'create']);
 Route::prefix("admin")->middleware('auth')->group(function() {
-    Route::get('/home',function(){
-        return view('home');
-    });
+    Route::get('/home',[DashboardController::class,'index'])->name('home');
 
     //employes routes
     Route::prefix("employes")->name('employes.')->group(function(){

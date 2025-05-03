@@ -1,7 +1,7 @@
 <div class="card-body">
                          <form wire:submit.prevent="store"
                               method="POST" class="mt-3">
-                             
+
                               <div class="form-group mb-3">
                                 <label for="registration_number">Registration Number</label>
                                 <input type="text" class="form-control"
@@ -15,6 +15,14 @@
                                 name="name" placeholder="Full Name"
                                 wire:model="name">
                                 @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="mt-2">
+                                <label for="" class="form-label">Image</label>
+                                <input type="file" class="form-control mb-3 p-2 border" wire:model="image" id="">
+                                @if ($image)
+                                    <img src="{{ $image->temporaryUrl() }}" alt="" width="100px" height="100px">
+                                @endif
+                                @error('image') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group mb-3">
                                 <label for="email">Email</label>
@@ -74,9 +82,9 @@
                                 </button>
                             </div>
 
-                            
-                            
-                            
+
+
+
 
 
                         </form>

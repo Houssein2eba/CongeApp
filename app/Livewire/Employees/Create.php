@@ -5,13 +5,16 @@ use App\Models\Departement;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
 class Create extends Component
 {
+    use WithFileUploads;
     public $name='';
     public $email='';
     public $password='';
     public $registration_number='';
     public $departement='';
+    public $image;
     public $hire_date='';
     public $phone='';
     public $address='';
@@ -38,10 +41,12 @@ class Create extends Component
     }
     public function store()
     {
+
         $this->validate();
 
         DB::transaction(function () {
-        $url = asset('storage/' . $this->file('image')->store('images', 'public'));
+            $path =  $this->image->store('images', 'public');
+            $url =  asset('storage/' . $path) ;
 
             $user = User::create([
                 'name' => $this->name,
