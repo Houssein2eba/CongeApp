@@ -10,15 +10,19 @@ class Index extends Component
 {
     public $departements;
 
-    public function mount()
+    public function mount($departements = null)
     {
-        $this->loadDepartements();
+        if ($departements) {
+            $this->departements = $departements;
+        } else {
+            $this->loadDepartements();
+        }
     }
 
     #[On('departmentCreated')]
     public function refreshList()
     {
-        $this->loadDepartements(); // Reload the data
+        $this->loadDepartements();
     }
 
     public function loadDepartements()

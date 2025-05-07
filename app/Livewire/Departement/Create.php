@@ -20,8 +20,8 @@ class Create extends Component
         ]);
 
         $this->reset(['name']);
-        session()->flash('message', 'Department created successfully.');
         $this->dispatch('departmentCreated');
+        session()->flash('message', 'Département créé avec succès.');
     }
     public function render()
     {
