@@ -31,5 +31,10 @@ class Employe extends Model
     public function getFormattedHireDateAttribute()
     {
         return optional($this->hire_date)->format('d/m/Y');
+    
+    }
+    public function conges()
+    {
+        return $this->hasMany(Conge::class);
     }
 }

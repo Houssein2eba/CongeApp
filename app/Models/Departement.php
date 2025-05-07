@@ -13,5 +13,8 @@ class Departement extends Model
         return $this->hasMany(User::class);
     }
 
-
+    public function conges()
+    {
+        return $this->hasManyThrough(Conge::class, User::class);
+    }
 }

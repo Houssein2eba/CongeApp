@@ -5,6 +5,7 @@ use App\Http\Controllers\DepartementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\CongeController;
 
 Route::get('/',function(){
     return view('welcome');
@@ -34,6 +35,13 @@ Route::prefix("admin")->middleware('auth')->group(function() {
         Route::delete('/{id}',[DepartementController::class,'destroy'])->name('destroy');
         Route::post('/',[DepartementController::class,'store'])->name('store');
     });
+    // conges routes
+    
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/conges', [CongeController::class, 'index'])->middleware('can:view_conges');
+        Route::post('/conges', [CongeController::class, 'store'])->middleware('can:request_conge');
+    });
+
 
 });
 

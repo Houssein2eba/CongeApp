@@ -28,7 +28,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nom Complet</th>
-                                        <th>Image</th>
+                                        {{--<th>Image</th>--}}
                                         <th>Departement</th>
                                         <th>Date Embauche</th>
                                         <th>Email</th>
@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>{{ $index +1 }}</td>
                                         <td>{{ $employe->name }}</td>
-                                        <td><img src="{{ asset($employe->image) }}" alt="" width="100px" height="100px"></td>
+                                        {{--<td><img src="{{ asset($employe->image) }}" alt="" width="100px" height="100px"></td>--}}
                                         <td>{{ $employe->departement->name }}</td>
                                         <td>{{ $employe->hire_date }}</td>
                                         <td>{{ $employe->email }}</td>

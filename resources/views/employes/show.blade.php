@@ -10,7 +10,7 @@
 
 @section('content_header')
 
-   <h3>Afficher un employe </h3>
+   <h3>  Afficher un employé  </h3>
 
 @endsection
 
@@ -22,11 +22,12 @@
                 <div class="card my-5">
                     <div class="card-header">
                         <div class="text-center font-weight-bold text-uppercase">
-                           /@if(isset($employe))                         
+                            <h4>{{$employe->fullname}}</h4>
+                          {{-- @if(isset($employe))                         
                                 <h4>{{$employe->fullname}}</h4>
                             @else
                                 <h4>الموظف غير موجود</h4>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                     <div class="card-body">
@@ -36,7 +37,7 @@
                                 <td>{{$employe->registration_number}}</td>
                             </tr>
                             <tr>
-                                <th>FullName</th>
+                                <th>Nom Complet</th>
                                 <td>{{$employe->name}}</td>
                             </tr>
                             <tr>
@@ -44,7 +45,7 @@
                                 <td>{{$employe->departement->name}}</td>
                             </tr>
                             <tr>
-                                <th>Hire_date</th>
+                                <th>Date_Embauche</th>
                                 <td>{{$employe->hire_date}}</td>
                             </tr>
                             <tr>
@@ -56,7 +57,7 @@
                                 <td>{{$employe->phone}}</td>
                             </tr>
                             <tr>
-                                <th>Address</th>
+                                <th>Adresse</th>
                                 <td>{{$employe->address}}</td>
                             </tr>
                             <tr>

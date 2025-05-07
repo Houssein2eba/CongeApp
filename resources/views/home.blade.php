@@ -41,7 +41,7 @@
                         <p>Departements</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-calender"></i>
 
                     </div>
                     <a href="{{url('admin/departements')}}" class="small-box-footer">
@@ -49,6 +49,21 @@
                     </a>
                 </div>
             </div>
+           {{-- <div class="col-md-4">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{$stats['total_conges']}}</h3>
+                        <p>Departements</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-building"></i>
+
+                    </div>
+                    <a href="{{url('admin/conges')}}" class="small-box-footer">
+                        Voir plus <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div> --}}
 
 
             </div>
