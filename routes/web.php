@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Conge\CongeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartementController;
 use Illuminate\Support\Facades\Route;
@@ -35,17 +36,13 @@ Route::prefix("admin")->middleware('auth')->group(function() {
         Route::post('/',[DepartementController::class,'store'])->name('store');
     });
 
+    //conges routes
+    Route::prefix("conges")->name('conges.')->group(function(){
+        Route::get('/',[CongeController::class,'index'])->name('index');
+        Route::get('/create',[CongeController::class,'create'])->name('create');
+        Route::post('/store',[CongeController::class,'store'])->name('store');
+    });
 });
-
-   // Route::post("/login", [EmployeController::class, "showLoginForm"])->name('login.post');
-    //Route::get("/home", [EmployeController::class, "home"])->name('home');
-   // Route::middleware('auth')->group(function()
-   // {
-        //Route::get('/home', function(){
-          //  return view('home');
-        //  Route::get("/home", [EmployeController::class, "home"])->name('home');
-
-      //  });
 
 
 
