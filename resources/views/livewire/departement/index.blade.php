@@ -3,6 +3,8 @@
 
     <div class="list-group">
         @forelse ($departements as $departement)
+        div.flex
+
             <div class="list-group-item">
                 {{ $departement->name }}
             </div>
