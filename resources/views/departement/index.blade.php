@@ -6,7 +6,7 @@
         <!-- Left Column: Department List -->
         <div class="col-md-6">
             <h4>Liste des Départements</h4>
-            @livewire('departement.index')
+            @livewire('departement.index', ['departements' => $departements])
         </div>
 
         <!-- Right Column: Create Form -->

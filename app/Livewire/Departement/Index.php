@@ -2,20 +2,20 @@
 
 namespace App\Livewire\Departement;
 
+use App\Models\Departement;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $departements = [];
-
-
-    protected $listeners = ['departmentCreated' => 'refreshList'];
+    public $departements;
 
     public function mount()
     {
         $this->loadDepartements();
     }
 
+    #[On('departmentCreated')]
     public function refreshList()
     {
         $this->loadDepartements(); // Reload the data
@@ -25,6 +25,7 @@ class Index extends Component
     {
         $this->departements = \App\Models\Departement::get();
     }
+
     public function render()
     {
         return view('livewire.departement.index');

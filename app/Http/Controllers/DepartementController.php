@@ -8,7 +8,8 @@ class DepartementController extends Controller
 {
     public function index()
     {
-        return view('departement.index');
+        $departements = \App\Models\Departement::with('users')->get();
+        return view('departement.index', compact('departements'));
     }
 
     public function create()
@@ -16,5 +17,5 @@ class DepartementController extends Controller
         return view('departement.create');
     }
 
-   
+
 }
