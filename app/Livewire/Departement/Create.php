@@ -18,10 +18,10 @@ class Create extends Component
         \App\Models\Departement::create([
             'name' => $this->name,
         ]);
-
-        $this->reset(['name']);
-        $this->dispatch('departmentCreated');
         session()->flash('message', 'Département créé avec succès.');
+
+        $this->reset();
+        $this->dispatch('departmentCreated');
     }
     public function render()
     {

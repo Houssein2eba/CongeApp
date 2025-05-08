@@ -1,51 +1,70 @@
 <?php
 
-use App\Http\Controllers\Conge\CongeController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Conge\EmployeCongeController;
+use App\Http\Controllers\EmployeeHomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeController;
-use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\Admin\EmployesController;
+use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CongeController;
 
+<<<<<<< HEAD
 
 Route::get('/',function(){
     return view('welcome');
+=======
+Route::get('/', function() {
+     echo "hi";
+>>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
 });
-Route::get('/employes',[EmployesController::class,'index']);
-Route::get('/employes/create',[EmployesController::class,'create']);
-Route::prefix("admin")->middleware('auth')->group(function() {
-    Route::get('/home',[DashboardController::class,'index'])->name('home');
 
-    //employes routes
-    Route::prefix("employes")->name('employes.')->group(function(){
-        Route::get('/',[EmployesController::class,'index'])->name('index');
-        Route::get('/create',[EmployesController::class,'create'])->name('create');
-        Route::get('/{id}',[EmployesController::class,'show'])->name('show');
-        Route::get('/{id}/edit',[EmployesController::class,'edit'])->name('edit');
-        Route::put('/{id}',[EmployesController::class,'update'])->name('update');
-        Route::delete('/{id}',[EmployesController::class,'destroy'])->name('destroy');
-        Route::post('/',[EmployesController::class,'store'])->name('store');
+// Authentication Routes
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
+});
+
+Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Protected Routes
+Route::middleware(['auth'])->group(function() {
+    // Admin routes with role middleware
+    Route::prefix('admin')->name('admin.')->group(function() {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        // Employes routes
+        Route::resource('employes', EmployesController::class);
+        
+        // Departements routes
+        Route::resource('departements', DepartementController::class);
+        
+        // Conges routes
+        Route::controller(CongeController::class)->group(function() {
+            Route::get('/conges', 'index')->name('conges.index');
+            Route::get('/conges/create', 'create')->name('conges.create');
+            Route::post('/conges/store', 'store')->name('conges.store');
+        });
     });
-    //departement routes
-    Route::prefix("departements")->name('departements.')->group(function(){
-        Route::get('/',[DepartementController::class,'index'])->name('index');
-        Route::get('/create',[DepartementController::class,'create'])->name('create');
-        Route::get('/{id}',[DepartementController::class,'show'])->name('show');
-        Route::get('/{id}/edit',[DepartementController::class,'edit'])->name('edit');
-        Route::put('/{id}',[DepartementController::class,'update'])->name('update');
-        Route::delete('/{id}',[DepartementController::class,'destroy'])->name('destroy');
-        Route::post('/',[DepartementController::class,'store'])->name('store');
-    });
+<<<<<<< HEAD
     // conges routes
     
     Route::middleware(['auth'])->group(function () {
         Route::get('/conges', [CongeController::class, 'index'])->middleware('can:view_conges');
         Route::post('/conges', [CongeController::class, 'store'])->middleware('can:request_conge');
+=======
+
+    // Employee routes with role middleware
+    Route::prefix('employee')->name('employee.')->group(function() {
+        Route::get('/dashboard', [EmployeeHomeController::class, 'index'])->name('dashboard');
+        Route::get('/create-conge', [EmployeCongeController::class, 'create'])->name('create-conge');
+>>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
     });
 
 
 });
-
-
 
 

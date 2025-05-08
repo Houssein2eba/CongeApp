@@ -5,7 +5,7 @@
                 <div class="card-header">{{ __('Demande de congé') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('conges.store') }}">
+                    <form method="POST" action="{{ route('admin.conges.store') }}">
                         @csrf
 
                         <div class="form-group row mb-3">
@@ -40,15 +40,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Soumettre') }}
-                                </button>
-                                <a href="{{ route('conges.index') }}" class="btn btn-secondary">
-                                    {{ __('Annuler') }}
-                                </a>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">{{ __('Envoyer') }}</button>
+                            <a href="{{ route('admin.conges.index') }}" class="btn btn-secondary">
+                                {{ __('Annuler') }}
+                            </a>
                         </div>
                     </form>
                 </div>
