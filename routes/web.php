@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\Conge\CongeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeController;
 use App\Http\Controllers\EmployesController;
-use App\Http\Controllers\CongeController;
+
 
 Route::get('/',function(){
     return view('welcome');
@@ -44,16 +45,6 @@ Route::prefix("admin")->middleware('auth')->group(function() {
 
 
 });
-
-   // Route::post("/login", [EmployeController::class, "showLoginForm"])->name('login.post');
-    //Route::get("/home", [EmployeController::class, "home"])->name('home');
-   // Route::middleware('auth')->group(function()
-   // {
-        //Route::get('/home', function(){
-          //  return view('home');
-        //  Route::get("/home", [EmployeController::class, "home"])->name('home');
-
-      //  });
 
 
 

@@ -83,7 +83,7 @@ return [
     |
     */
 
-    
+
     'auth_logo' => [
         'enabled' => true,
         'img' => [
@@ -120,7 +120,7 @@ return [
         ],
     ],
 
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -153,7 +153,7 @@ return [
     |
     */
 
-    
+
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => true,
@@ -163,7 +163,7 @@ return [
     'custom_css' => [
             'css/custom.css?v='.time(),
         ],
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -305,14 +305,14 @@ return [
     */
 
     'menu' => [
-        
+
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
-    
+
         [
             'text' => 'blog',
             'url' => 'admin/blog',
@@ -323,10 +323,10 @@ return [
             'text' => 'Tableau de bord',
             'icon' => 'fas fa-home',
             'url' => 'admin/home',
-           
+
         ],
         //['header' => 'account_settings'],
-        
+
         /**[
             'text' => 'change_password',
             'url' => 'admin/settings',
@@ -346,12 +346,22 @@ return [
                     'text' => 'Ajouter Employé',
                     'url' => 'admin/employes/create',
                     'icon'=> 'fas fa-fw fa-user-plus'
-                ],    
+                ],
            ],
-  
-
         ],
-    
+        [
+            'text' => 'Départements',
+            'icon' => 'fas fa-building',
+            'submenu' => [
+                [
+                    'text' => 'Liste des départements',
+                    'url' => 'admin/departements',
+                    'icon' => 'fas fa-list'
+                ],
+                
+            ],
+        ],
+
         // Gestion des conges
         ['header' => 'Gestion des Congés '],
         [
@@ -359,13 +369,18 @@ return [
             'icon' => 'fas fa-calendar-alt',
             'submenu' => [
                 [
-                    'text' => 'Demandes des Congés',
-                    'url' => 'admin/parametres/types-conges',
+                    'text' => 'Liste des Congés',
+                    'url' => 'admin/conges',
                     'icon' => 'fas fa-fw fa-list-ol'
                 ],
                 [
+                    'text' => 'Nouveau Congé',
+                    'url' => 'admin/conges/create',
+                    'icon' => 'fas fa-plus'
+                ],
+                [
                     'text' => 'Types de congés',
-                    'url' => 'admin/parametres/politiques',
+                    'url' => 'admin/parametres/types-conges',
                     'icon' => 'fas fa-list'
                 ],
                 [
@@ -373,8 +388,6 @@ return [
                     'url' => 'admin/parametres/politiques',
                     'icon' => 'fas fa-file-alt'
                 ],
-
-                
             ],
         ],
             // Rapports
@@ -401,10 +414,10 @@ return [
                         'url' => 'admin/parametres/politiques',
                         'icon' => 'fas fa-lock'
                     ],
-                    
+
                 ],
 
-                
+
             ],
     ],
 

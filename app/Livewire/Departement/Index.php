@@ -2,29 +2,34 @@
 
 namespace App\Livewire\Departement;
 
+use App\Models\Departement;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $departements = [];
+    public $departements;
 
-
-    protected $listeners = ['departmentCreated' => 'refreshList'];
-
-    public function mount()
+    public function mount($departements = null)
     {
-        $this->loadDepartements();
+        if ($departements) {
+            $this->departements = $departements;
+        } else {
+            $this->loadDepartements();
+        }
     }
 
+    #[On('departmentCreated')]
     public function refreshList()
     {
-        $this->loadDepartements(); // Reload the data
+        $this->loadDepartements();
     }
 
     public function loadDepartements()
     {
         $this->departements = \App\Models\Departement::get();
     }
+
     public function render()
     {
         return view('livewire.departement.index');
