@@ -27,7 +27,7 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middl
 // Protected Routes
 Route::middleware(['auth'])->group(function() {
     // Admin routes with role middleware
-    Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function() {
+    Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         
         // Employes routes
@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function() {
     });
 
     // Employee routes with role middleware
-    Route::prefix('employee')->name('employee.')->middleware('role:employee')->group(function() {
+    Route::prefix('employee')->name('employee.')->group(function() {
         Route::get('/dashboard', [EmployeeHomeController::class, 'index'])->name('dashboard');
         Route::get('/create-conge', [EmployeCongeController::class, 'create'])->name('create-conge');
     });
