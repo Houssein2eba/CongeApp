@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CongeController;
 
 Route::get('/', function() {
-    return view('welcome');
+     echo "hi";
 });
 
 // Authentication Routes

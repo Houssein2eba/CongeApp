@@ -1,12 +1,4 @@
-@extends('adminlte::page')
-
-@section('title')
-    Dashboard | Employee Portal
-@endsection
-
-@section('content_header')
-    <h1>Welcome to Employee Portal</h1>
-@endsection
+@extends('layouts.user')
 
 @section('content')
 <div class="container">

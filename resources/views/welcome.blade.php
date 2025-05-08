@@ -21,7 +21,7 @@
                             </a>
                         @endguest
                         @auth
-                            <a href="{{url('admin/home')}}" class="btn btn-outline-primary">
+                            <a href="{{route('admin.dashboard')}}" class="btn btn-outline-primary">
                                 Home
                             </a>
                         @endauth
