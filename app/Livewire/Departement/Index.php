@@ -9,6 +9,7 @@ use Livewire\Component;
 class Index extends Component
 {
     public $departements;
+    public $departmentToDelete = null;
 
     public function mount($departements = null)
     {
@@ -20,6 +21,7 @@ class Index extends Component
     }
 
     #[On('departmentCreated')]
+    #[On('departmentDeleted')]
     public function refreshList()
     {
         $this->loadDepartements();
@@ -27,7 +29,17 @@ class Index extends Component
 
     public function loadDepartements()
     {
-        $this->departements = \App\Models\Departement::get();
+        $this->departements = Departement::get();
+    }
+
+    
+
+    public function delete($id)
+    {
+        
+        Departement::find($id)->delete();
+        session()->flash('message', 'Department deleted successfully.');
+        $this->dispatch('departmentDeleted');
     }
 
     public function render()
