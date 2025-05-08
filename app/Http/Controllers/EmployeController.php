@@ -19,7 +19,8 @@ class EmployeController extends Controller
 
                 return back()->withErrors(['message'=>'These credentials do not match our records!'])->withInput();
            
-        return view("login");
+        
+
             }
                 
     }

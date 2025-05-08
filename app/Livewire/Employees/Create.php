@@ -61,9 +61,9 @@ class Create extends Component
                 'departement_id' => $this->departement,
             ]);
             $user->assignRole('employee');
+            session()->flash('message', 'Employé créé avec succès.');
             $this->reset();
 
-            return redirect()->route('employes.index')->with('success', 'Employé créé avec succès');
         });
     }
 

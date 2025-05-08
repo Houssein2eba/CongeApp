@@ -1,49 +1,37 @@
 <?php
 
-use App\Http\Controllers\Conge\CongeController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\Conge\EmployeCongeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployeController;
-use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\Admin\EmployesController;
+use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CongeController;
 
-Route::get('/',function(){
+Route::get('/', function() {
     return view('welcome');
 });
-Route::get('/employes',[EmployesController::class,'index']);
-Route::get('/employes/create',[EmployesController::class,'create']);
-Route::prefix("admin")->middleware('auth')->group(function() {
-    Route::get('/home',[DashboardController::class,'index'])->name('home');
 
-    //employes routes
-    Route::prefix("employes")->name('employes.')->group(function(){
-        Route::get('/',[EmployesController::class,'index'])->name('index');
-        Route::get('/create',[EmployesController::class,'create'])->name('create');
-        Route::get('/{id}',[EmployesController::class,'show'])->name('show');
-        Route::get('/{id}/edit',[EmployesController::class,'edit'])->name('edit');
-        Route::put('/{id}',[EmployesController::class,'update'])->name('update');
-        Route::delete('/{id}',[EmployesController::class,'destroy'])->name('destroy');
-        Route::post('/',[EmployesController::class,'store'])->name('store');
-    });
-    //departement routes
-    Route::prefix("departements")->name('departements.')->group(function(){
-        Route::get('/',[DepartementController::class,'index'])->name('index');
-        Route::get('/create',[DepartementController::class,'create'])->name('create');
-        Route::get('/{id}',[DepartementController::class,'show'])->name('show');
-        Route::get('/{id}/edit',[DepartementController::class,'edit'])->name('edit');
-        Route::put('/{id}',[DepartementController::class,'update'])->name('update');
-        Route::delete('/{id}',[DepartementController::class,'destroy'])->name('destroy');
-        Route::post('/',[DepartementController::class,'store'])->name('store');
-    });
-
-    //conges routes
-    Route::prefix("conges")->name('conges.')->group(function(){
-        Route::get('/',[CongeController::class,'index'])->name('index');
-        Route::get('/create',[CongeController::class,'create'])->name('create');
-        Route::post('/store',[CongeController::class,'store'])->name('store');
+Route::middleware(['auth'])->group(function() {
+    Route::prefix('admin')->name('admin.')->group(function() {
+        Route::get('/home', [DashboardController::class, 'index'])->name('home');
+        
+        // Employes routes
+        Route::resource('employes', EmployesController::class);
+        
+        // Departements routes
+        Route::resource('departements', DepartementController::class);
+        
+        // Conges routes
+        Route::controller(CongeController::class)->group(function() {
+            Route::get('/conges', 'index')->name('conges.index');
+            Route::get('/conges/create', 'create')->name('conges.create');
+            Route::post('/conges/store', 'store')->name('conges.store');
+        });
     });
 });
 
-
+Route::middleware(['auth'])->group(function() {
+    Route::get('/create-conge',[EmployeCongeController::class, 'create'])->name('create-conge');
+});
 
 

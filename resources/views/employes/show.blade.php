@@ -1,17 +1,11 @@
 @extends('adminlte::page')
 
-
-
 @section('title')
-
     Afficher un employé |Laravel Employes App
-
 @endsection
 
 @section('content_header')
-
    <h3>Afficher un employe </h3>
-
 @endsection
 
 @section('content')
@@ -22,7 +16,7 @@
                 <div class="card my-5">
                     <div class="card-header">
                         <div class="text-center font-weight-bold text-uppercase">
-                           /@if(isset($employe))                         
+                            @if(isset($employe))                         
                                 <h4>{{$employe->fullname}}</h4>
                             @else
                                 <h4>الموظف غير موجود</h4>
@@ -67,11 +61,11 @@
                                 <th>Actions</th>
                                 <td>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <a href="{{ route('employes.edit', $employe->id) }}"
+                                        <a href="{{ route('admin.employes.edit', $employe->id) }}"
                                            class="btn btn-sm btn-warning mx-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('employes.destroy', $employe->id) }}" method="POST">
+                                        <form action="{{ route('admin.employes.destroy', $employe->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
@@ -82,7 +76,7 @@
                                 </td>
                             </tr>
                         </table>
-
+                    </div>
                 </div>
             </div>
         </div>

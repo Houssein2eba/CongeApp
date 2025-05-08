@@ -52,15 +52,15 @@
                                         <td>{{ $employe->city }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <a href="{{ route('employes.show', $employe->id) }}"
+                                                <a href="{{ route('admin.employes.show', $employe->id) }}"
                                                    class="btn btn-sm btn-primary">
                                                    <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('employes.edit', $employe->id) }}"
+                                                <a href="{{ route('admin.employes.edit', $employe->id) }}"
                                                    class="btn btn-sm btn-warning mx-2">
                                                    <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form id="{{ $employe->id }}" action="{{ route('employes.destroy', $employe->id) }}" method="post">
+                                                <form id="{{ $employe->id }}" action="{{ route('admin.employes.destroy', $employe->id) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
