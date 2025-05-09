@@ -1,4 +1,4 @@
-<div class="container">
+{{--<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -52,3 +52,42 @@
         </div>
     </div>
 </div>
+--}}
+@extends('adminlte::page')
+
+@section('title', 'Demande de congé')
+
+@section('content')
+    <h1>Demande de congé</h1>
+    @livewire('conges-create')
+@endsection
+
+
+<div>
+    @if(session()->has('message'))
+        <div class="alert alert-success">{{ session('message')}}</div>
+    @endif
+
+    <form wire:submit.prevent="submit">
+        <label>Type de congé:</label>
+        <select wire:model="type" class="form-control">
+            <option value="vacances">Vacances</option>
+            <option value="maladie">Maladie</option>
+            <option value="télétravail">Télétravail</option>
+        </select>
+
+        <label>Date de début:</label>
+        <input type="date" wire:model="date_debut" class="form-control">
+
+        <label>Date de fin:</label>
+        <input type="date" wire:model="date_fin" class="form-control">
+
+        <label>Motif (optionnel):</label>
+        <textarea wire:model="motif" class="form-control"></textarea>
+
+        <button type="submit" class="btn btn-primary mt-2">
+            <i class="fas fa-paper-plane"></i> Envoyer la demande
+        </button>
+    </form>
+</div>
+

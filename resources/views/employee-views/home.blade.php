@@ -8,13 +8,13 @@
             <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ auth()->user()->remaining_leave_days ?? 0 }}</h3>
-                    <p>Leave Balance</p>
+                    <p>solde des congés </p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <a href="{{ url('employee/leaves') }}" class="small-box-footer">
-                    View Details <i class="fas fa-arrow-circle-right"></i>
+                    Voir plus  <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -24,13 +24,13 @@
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>{{ auth()->user()->pending_leaves_count ?? 0 }}</h3>
-                    <p>Pending Leave Requests</p>
+                    <p>Demande de congé en attente</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-clock"></i>
                 </div>
                 <a href="{{ url('employee/leaves/pending') }}" class="small-box-footer">
-                    View Details <i class="fas fa-arrow-circle-right"></i>
+                    Voir plus  <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     <i class="fas fa-building"></i>
                 </div>
                 <a href="{{ url('employee/department') }}" class="small-box-footer">
-                    View Details <i class="fas fa-arrow-circle-right"></i>
+                    Voir plus <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -62,21 +62,24 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <a href="{{ url('employee/leaves/create') }}" class="btn btn-primary btn-lg">
+                            <a href="{{ route('conge.create') }}" class="btn btn-primary btn-lg">
                                 <i class="fas fa-plus-circle"></i><br>
-                                Request Leave
+                                Demander un congé
+
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ url('employee/profile') }}" class="btn btn-info btn-lg">
                                 <i class="fas fa-user-circle"></i><br>
-                                View Profile
+                                Voir le profil
+
                             </a>
                         </div>
                         <div class="col-md-4 text-center">
                             <a href="{{ url('employee/calendar') }}" class="btn btn-success btn-lg">
                                 <i class="fas fa-calendar-alt"></i><br>
-                                Leave Calendar
+                                Calendrier des congés
+
                             </a>
                         </div>
                     </div>
