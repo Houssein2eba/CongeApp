@@ -15,6 +15,6 @@ class DashboardController extends Controller
             'total_employees' => User::count(),
             'total_departments' => Departement::count(),
         ];
-        return view('home', compact('stats'));
+        return view('admin.home', compact('stats'));
     }
 }

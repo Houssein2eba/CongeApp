@@ -62,7 +62,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <a href="{{ route('conge.create') }}" class="btn btn-primary btn-lg">
+                            <a href="{{ route('employe.conge.create') }}" class="btn btn-primary btn-lg">
                                 <i class="fas fa-plus-circle"></i><br>
                                 Demander un congé
 

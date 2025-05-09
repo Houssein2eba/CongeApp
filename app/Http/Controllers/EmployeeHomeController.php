@@ -11,7 +11,7 @@ class EmployeeHomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         return view('employee-views.home', [
             'user' => $user,
         ]);

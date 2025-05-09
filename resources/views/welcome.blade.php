@@ -21,11 +21,14 @@
                             </a>
                         @endguest
                         @auth
-                            <a href="{{route('admin.dashboard')}}" class="btn btn-outline-primary">
-                                Home
-                            </a>
+                            //logout
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger">
+                                    Logout
+                                </button>
                         @endauth
-                        
+
                     </div>
                 </div>
             </div>

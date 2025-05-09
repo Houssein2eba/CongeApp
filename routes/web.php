@@ -19,12 +19,8 @@ use App\Livewire\Conges\Create;
 
 Route::get('/',function(){
     return view('welcome');
-});
-//=======
-//Route::get('//', function() {
-    // echo "hi";
-//>>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
-//});
+})->name('welcome');
+
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -41,43 +37,39 @@ Route::middleware(['auth'])->group(function() {
     // Admin routes with role middleware
     Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        
+
         // Employes routes
-        Route::resource('employes', EmployesController::class);
-        
+        Route::get('/employes', [EmployesController::class, 'index'])->name('employe.index');
+        Route::get('/employes/create', [EmployesController::class, 'create'])->name('employe.create');
+        Route::get('/employes/{id}', [EmployesController::class, 'show'])->name('employe.show');
+        Route::get('/employes/{id}/edit', [EmployesController::class, 'edit'])->name('employe.edit');
+        Route::put('/employes/{id}', [EmployesController::class, 'update'])->name('employe.update');
+        Route::delete('/employes/{id}', [EmployesController::class, 'destroy'])->name('employe.destroy');
+        Route::post('/employes/store', [EmployesController::class, 'store'])->name('employe.store');
+
         // Departements routes
-        Route::resource('departements', DepartementController::class);
-        
+        Route::resource('departement', DepartementController::class);
+
         // Conges routes
         Route::controller(CongeController::class)->group(function() {
             Route::get('/conges', 'index')->name('conges.index');
-        
-            //Route::post('/conges/store', 'store')->name('conges.store');
-            
-            Route::post('/conges/store', [CongeController::class, 'store'])->name('conges.store');
+
+
 
         });
     });
 });
-//<<<<<<< HEAD
-    // conges routes
-    
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/conges', [CongeController::class, 'index'])->middleware('can:view_conges');
-        Route::post('/conges', [CongeController::class, 'store'])->middleware('can:request_conge');
-//=======
 
-    // Employee routes with role middleware
-    Route::prefix('employee')->name('employee.')->group(function() {
-        Route::get('/dashboard', [EmployeeHomeController::class, 'index'])->name('dashboard');
-        Route::get('/create-conge', [EmployeCongeController::class, 'create'])->name('create-conge');
-//>>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
-    });
+
     Route::middleware(['auth'])->group(function () {
-        Route::get('/conges/create', [EmployeCongeController::class, 'create'])->name('conges.create');
-        Route::post('/conges/store', [EmployeCongeController::class, 'store'])->name('conges.store');
+
+    Route::prefix('employe')->name('employe.')->group(function () {
+        Route::get('/dashboard', [EmployeeHomeController::class, 'index'])->name('dashboard');
+        Route::get('/conges', [EmployeCongeController::class, 'index'])->name('conge.index');
+        Route::get('/conges/create', [EmployeCongeController::class, 'create'])->name('conge.create');
+        Route::post('/conges/store', [EmployeCongeController::class, 'store'])->name('conge.store');
     });
-    
+
 
 });
 

@@ -9,7 +9,7 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
@@ -56,7 +56,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{ route('employee.dashboard') }}" class="brand-link">
+            <a href="{{ route('employe.dashboard') }}" class="brand-link">
                 <span class="brand-text font-weight-light">CongeApp</span>
             </a>
 
@@ -66,7 +66,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                         <li class="nav-item">
-                            <a href="{{ route('employee.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('employe.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>

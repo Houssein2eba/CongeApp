@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
     <h1>Demande de congé</h1>
@@ -7,7 +7,7 @@
         <div class="alert alert-success">{{ session('message')}}</div>
     @endif
 
-    <form action="{{ route('conges.store')}}" method="POST">
+    <form action="{{ route('employe.conge.store')}}" method="POST">
         @csrf
 
         <div class="form-group">

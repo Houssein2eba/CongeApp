@@ -24,9 +24,9 @@
                         <div class="text-center font-weight-bold text-uppercase">
 <<<<<<< HEAD
                             <h4>{{$employe->fullname}}</h4>
-                          {{-- @if(isset($employe))                         
+                          {{-- @if(isset($employe))
 =======
-                            @if(isset($employe))                         
+                            @if(isset($employe))
 >>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
                                 <h4>{{$employe->fullname}}</h4>
                             @else
@@ -72,11 +72,11 @@
                                 <th>Actions</th>
                                 <td>
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <a href="{{ route('admin.employes.edit', $employe->id) }}"
+                                        <a href="{{ route('admin.employe.edit', $employe->id) }}"
                                            class="btn btn-sm btn-warning mx-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('admin.employes.destroy', $employe->id) }}" method="POST">
+                                        <form action="{{ route('admin.employe.destroy', $employe->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">

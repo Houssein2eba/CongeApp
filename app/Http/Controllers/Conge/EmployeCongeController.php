@@ -9,6 +9,6 @@ class EmployeCongeController extends Controller
 {
     public function create()
     {
-        return view('conge.create');
+        return view('employee-views.conges.create');
     }
 }

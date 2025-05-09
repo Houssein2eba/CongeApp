@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-body">
                         @if(isset($employe))
-                            <form action="{{ route('admin.employes.update', $employe->id) }}" method="POST" class="mt-3">
+                            <form action="{{ route('admin.employe.update', $employe->id) }}" method="POST" class="mt-3">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group mb-3">
@@ -53,7 +53,7 @@
                                 <div class="form-group mb-3">
                                     <label for="hire_date">Hire Date</label>
                                     <input type="date" class="form-control"
-                                    name="hire_date" 
+                                    name="hire_date"
                                     value="{{ old('hire_date', $employe->hire_date) }}">
                                     <span class="text-danger">{{ $errors->first('hire_date') }}</span>
                                 </div>

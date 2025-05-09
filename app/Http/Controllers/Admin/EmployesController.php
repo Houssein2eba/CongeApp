@@ -18,26 +18,26 @@ class EmployesController extends Controller
             })
             ->get();
 
-        return view('employes.index', compact('employes'));
+        return view('admin.employes.index', compact('employes'));
     }
 
     public function create()
     {
-        return view('employes.create');
+        return view('admin.employes.create');
     }
 
     public function show(string $id)
     {
         $employe = User::with(['departement', 'roles'])->findOrFail($id);
-        return view('employes.show', compact('employe'));
+        return view('admin.employes.show', compact('employe'));
     }
 
     public function edit($id)
     {
         $employe = User::with(['departement', 'roles'])->findOrFail($id);
         $departements = Departement::select('id', 'name')->get();
-        
-        return view('employes.edit', compact('employe', 'departements'));
+
+        return view('admin.employes.edit', compact('employe', 'departements'));
     }
 
     public function update(Request $request, string $id)
@@ -55,7 +55,7 @@ class EmployesController extends Controller
         DB::transaction(function() use ($validated, $id) {
             $employe = User::findOrFail($id);
             $departement = Departement::findOrFail($validated['departement_id']);
-            
+
             $employe->departement()->associate($departement);
             $employe->update([
                 'name' => $validated['name'],
@@ -67,7 +67,7 @@ class EmployesController extends Controller
             ]);
         });
 
-        return redirect()->route('admin.employes.index')
+        return redirect()->route('admin.employe.index')
             ->with('success', 'Employé modifié avec succès');
     }
 
@@ -75,8 +75,8 @@ class EmployesController extends Controller
     {
         $employe = User::findOrFail($id);
         $employe->delete();
-        
-        return redirect()->route('admin.employes.index')
+
+        return redirect()->route('admin.employe.index')
             ->with('success', 'Employé supprimé avec succès');
     }
 }
