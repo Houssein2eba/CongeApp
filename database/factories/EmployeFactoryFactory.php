@@ -15,7 +15,7 @@ class EmployeFactoryFactory extends Factory
     {
         return [
             'registration_number' =>$this->faker->randomDigital(),
-            'fullname' =>$this->faker->name(),
+            'name' =>$this->faker->name(),
             'departement' =>$this->faker->word(),
             'hire_date' =>$this->faker->date(),
             'phone' =>$this->faker->phoneNumber(),

@@ -44,7 +44,7 @@
                         <i class="fas fa-calender"></i>
 
                     </div>
-                    <a href="{{url('admin/departements')}}" class="small-box-footer">
+                    <a href="{{route('admin.departement.index')}}" class="small-box-footer">
                         Voir plus <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>

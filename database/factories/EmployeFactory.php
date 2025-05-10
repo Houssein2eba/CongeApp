@@ -18,13 +18,13 @@ class EmployeFactory extends Factory
     {
         return [
             'registration_number' =>$this->faker->randomNumber(6,true),
-            'fullname' =>$this->faker->name(),
+            'name' =>$this->faker->name(),
             'departement' =>$this->faker->word(),
             'hire_date' =>$this->faker->date(),
             'phone' =>$this->faker->randomNumber(8,true),
             'address' =>$this->faker->address(),
             'city' =>$this->faker->city(),
-            
+
         ];
     }
 }
