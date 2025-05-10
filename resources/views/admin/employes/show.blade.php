@@ -1,95 +1,72 @@
-@extends('adminlte::page')
-
-@section('title')
-    Afficher un employé |Laravel Employes App
-@endsection
-
-@section('content_header')
-<<<<<<< HEAD
-
-   <h3>  Afficher un employé  </h3>
-
-=======
-   <h3>Afficher un employe </h3>
->>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
-@endsection
+@extends('layouts.user')
 
 @section('content')
-    <div class="container">
-        @include('layouts.alert')
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card my-5">
-                    <div class="card-header">
-                        <div class="text-center font-weight-bold text-uppercase">
-<<<<<<< HEAD
-                            <h4>{{$employe->fullname}}</h4>
-                          {{-- @if(isset($employe))
-=======
-                            @if(isset($employe))
->>>>>>> 58c7c5e1dbd4d4f075b99afd827d1605ac2a3986
-                                <h4>{{$employe->fullname}}</h4>
-                            @else
-                                <h4>الموظف غير موجود</h4>
-                            @endif --}}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>👤 Afficher un employé</h4>
+                </div>
+                <div class="card-body p-4">
+                    @include('layouts.alert')
+
+                    @if(isset($employe))
+                        <table class="table table-bordered">
                             <tr>
-                                <th>Registration_number</th>
-                                <td>{{$employe->registration_number}}</td>
+                                <th class="fw-bold text-primary">N° d’enregistrement:</th>
+                                <td>{{ $employe->registration_number}}</td>
                             </tr>
                             <tr>
-                                <th>Nom Complet</th>
-                                <td>{{$employe->name}}</td>
+                                <th class="fw-bold text-primary">Nom Complet:</th>
+                                <td>{{ $employe->name}}</td>
                             </tr>
                             <tr>
-                                <th>Departement</th>
-                                <td>{{$employe->departement->name}}</td>
+                                <th class="fw-bold text-primary">Département:</th>
+                                <td>{{ $employe->departement->name}}</td>
                             </tr>
                             <tr>
-                                <th>Date_Embauche</th>
-                                <td>{{$employe->hire_date}}</td>
+                                <th class="fw-bold text-primary">Date d’embauche:</th>
+                                <td>{{ $employe->hire_date}}</td>
                             </tr>
                             <tr>
-                                <th>Email</th>
-                                <td>{{$employe->email}}</td>
+                                <th class="fw-bold text-primary">Email:</th>
+                                <td>{{ $employe->email}}</td>
                             </tr>
                             <tr>
-                                <th>Phone</th>
-                                <td>{{$employe->phone}}</td>
+                                <th class="fw-bold text-primary">Téléphone:</th>
+                                <td>{{ $employe->phone}}</td>
                             </tr>
                             <tr>
-                                <th>Adresse</th>
-                                <td>{{$employe->address}}</td>
+                                <th class="fw-bold text-primary">Adresse:</th>
+                                <td>{{ $employe->address}}</td>
                             </tr>
                             <tr>
-                                <th>City</th>
-                                <td>{{$employe->city}}</td>
-                            </tr>
-                            <tr>
-                                <th>Actions</th>
-                                <td>
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <a href="{{ route('admin.employe.edit', $employe->id) }}"
-                                           class="btn btn-sm btn-warning mx-2">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('admin.employe.destroy', $employe->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <th class="fw-bold text-primary">Ville:</th>
+                                <td>{{ $employe->city}}</td>
                             </tr>
                         </table>
-                    </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ route('admin.employe.edit', $employe->id)}}" class="btn btn-warning rounded-pill">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+
+                            <form action="{{ route('admin.employe.destroy', $employe->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger rounded-pill">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="alert alert-danger text-center mt-3">❌ Employé introuvable!</div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection
+

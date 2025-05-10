@@ -133,4 +133,10 @@
     @stack('scripts')
     @livewireScripts
 </body>
+    return [
+
+
+
+    
+    ]
 </html>

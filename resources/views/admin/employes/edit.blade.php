@@ -1,95 +1,76 @@
-@extends('adminlte::page')
-
-@section('title')
-    modifier  |Laravel Employes App
-@endsection
-
-@section('content_header')
-   <h1>Modifier un employe</h1>
-@endsection
+@extends('layouts.user')
 
 @section('content')
-    <div class="container">
-        @include('layouts.alert')
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card my-5">
-                    <div class="card-header">
-                        <div class="text-center font-weight-bold text-uppercase">
-                            <h4>Modifier un employe</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        @if(isset($employe))
-                            <form action="{{ route('admin.employe.update', $employe->id) }}" method="POST" class="mt-3">
-                                @csrf
-                                @method('PUT')
-                                <div class="form-group mb-3">
-                                    <label for="registration_number">Registration Number</label>
-                                    <input type="text" class="form-control"
-                                    name="registration_number" placeholder="Registration number"
-                                    value="{{ old('registration_number', $employe->registration_number) }}">
-                                    <span class="text-danger">{{ $errors->first('registration_number') }}</span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>📝 Modifier un employé</h4>
+                </div>
+                <div class="card-body p-4">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success text-center">{{ session('message')}}</div>
+                    @endif
+
+                    @if(isset($employe))
+                        <form action="{{ route('admin.employe.update', $employe->id)}}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">N° d’enregistrement:</label>
+                                    <input type="text" name="registration_number" class="form-control" value="{{ old('registration_number', $employe->registration_number)}}">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" class="form-control"
-                                    name="name" placeholder="Full name"
-                                    value="{{ old('name', $employe->name) }}">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Nom complet:</label>
+                                    <input type="text" name="name" class="form-control" value="{{ old('name', $employe->name)}}">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="departement">Departement</label>
-                                    <select name="departement_id" class="form-control">
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Département:</label>
+                                    <select name="departement_id" class="form-select">
                                         @foreach ($departements as $departement)
-                                            <option value="{{ $departement->id }}"
-                                                @if($employe->departement->id == $departement->id) selected @endif>
-                                                {{ $departement->name }}
+                                            <option value="{{ $departement->id}}" @if($employe->departement->id == $departement->id) selected @endif>
+                                                {{ $departement->name}}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <span class="text-danger">{{ $errors->first('departement_id') }}</span>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="hire_date">Hire Date</label>
-                                    <input type="date" class="form-control"
-                                    name="hire_date"
-                                    value="{{ old('hire_date', $employe->hire_date) }}">
-                                    <span class="text-danger">{{ $errors->first('hire_date') }}</span>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Date d’embauche:</label>
+                                    <input type="date" name="hire_date" class="form-control" value="{{ old('hire_date', $employe->hire_date)}}">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="phone">Phone</label>
-                                    <input type="tel" class="form-control"
-                                    name="phone" placeholder="Phone"
-                                    value="{{ old('phone', $employe->phone) }}">
-                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Téléphone:</label>
+                                    <input type="tel" name="phone" class="form-control" value="{{ old('phone', $employe->phone)}}">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control"
-                                    name="address" placeholder="Address"
-                                    value="{{ old('address', $employe->address) }}">
-                                    <span class="text-danger">{{ $errors->first('address') }}</span>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Adresse:</label>
+                                    <input type="text" name="address" class="form-control" value="{{ old('address', $employe->address)}}">
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="city">City</label>
-                                    <input type="text" class="form-control"
-                                    name="city" placeholder="City"
-                                    value="{{ old('city', $employe->city) }}">
-                                    <span class="text-danger">{{ $errors->first('city') }}</span>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-primary">Ville:</label>
+                                    <input type="text" name="city" class="form-control" value="{{ old('city', $employe->city)}}">
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">
-                                        Modifier
-                                    </button>
-                                </div>
-                            </form>
-                        @else
-                            <div class="alert alert-danger text-center">Employee not found</div>
-                        @endif
-                    </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill">
+                                <i class="fas fa-save"></i> Enregistrer les modifications
+                            </button>
+                        </form>
+                    @else
+                        <div class="alert alert-danger text-center">❌ Employé introuvable!</div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

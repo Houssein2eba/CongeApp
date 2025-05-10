@@ -11,10 +11,10 @@ class DepartementController extends Controller
     public function index()
     {
         $departements = Departement::with('users')->get();
-        return view('departement.index', compact('departements'));
+        return view('admin.departement.index', compact('departements'));
     }
 
-
+    
 
 
 

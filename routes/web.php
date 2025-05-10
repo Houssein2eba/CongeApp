@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function() {
 
         // Departements routes
         Route::resource('departement', DepartementController::class);
+        
 
         // Conges routes
         Route::controller(CongeController::class)->group(function() {

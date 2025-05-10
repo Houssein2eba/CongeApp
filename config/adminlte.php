@@ -322,7 +322,7 @@ return [
         [
             'text' => 'Tableau de bord',
             'icon' => 'fas fa-home',
-            'url' => 'admin/home',
+            'url' => 'admin/dashboard',
 
         ],
         //['header' => 'account_settings'],
@@ -355,7 +355,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Liste des départements',
-                    'url' => 'admin/departements',
+                    'url' => 'admin/departement',
                     'icon' => 'fas fa-list'
                 ],
                 

@@ -46,7 +46,7 @@ class LoginController extends Controller
 
         // Authentication failed
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Connexion échouée! Vérifiez vos informations et réessayez.',
         ])->onlyInput('email');
     }
 

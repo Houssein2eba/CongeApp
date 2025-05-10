@@ -1,41 +1,61 @@
 @extends('layouts.user')
 
 @section('content')
-    <h1>Demande de congé</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>📅 Demande de congé</h4>
+                </div>
+                <div class="card-body p-4">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success text-center">{{ session('message')}}</div>
+                    @endif
 
-    @if(session()->has('message'))
-        <div class="alert alert-success">{{ session('message')}}</div>
-    @endif
+                    <form action="{{ route('employe.conge.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
 
-    <form action="{{ route('employe.conge.store')}}" method="POST">
-        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-primary">Type:</label>
+                                <select name="type" class="form-select">
+                                    <option value="vacances">🏖 Vacances</option>
+                                    <option value="maladie">🤕 Maladie</option>
+                                    <option value="télétravail">💻 Télétravail</option>
+                                </select>
+                            </div>
 
-        <div class="form-group">
-            <label>Type de congé:</label>
-            <select name="type" class="form-control">
-                <option value="vacances">Vacances</option>
-                <option value="maladie">Maladie</option>
-                <option value="télétravail">Télétravail</option>
-            </select>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-primary">Date début:</label>
+                                <input type="date" name="date_debut" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-primary">Date fin:</label>
+                                <input type="date" name="date_fin" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-primary">Justificatif:</label>
+                                <input type="file" name="justificatif" class="form-control">
+                                <small class="text-muted">Formats acceptés: PDF, JPG, PNG</small>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-primary">Motif (optionnel):</label>
+                                <textarea name="motif" class="form-control" rows="2" placeholder="Expliquez brièvement..." style="resize: none;"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill">
+                            <i class="fas fa-paper-plane"></i> Envoyer
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>Date de début:</label>
-            <input type="date" name="date_debut" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Date de fin:</label>
-            <input type="date" name="date_fin" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Motif (optionnel):</label>
-            <textarea name="motif" class="form-control"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-            <i class="fas fa-paper-plane"></i> Envoyer la demande
-        </button>
-    </form>
+    </div>
+</div>
 @endsection
+

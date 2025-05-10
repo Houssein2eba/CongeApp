@@ -98,13 +98,13 @@
 
         function deleteEmp(id) {
             Swal.fire({
-                title: "Are you sure?",
-                text: "Etes-vous sur de vouloir supprimer cet employé ?",
+                title: "Êtes-vous sûr?",
+                text: "Voulez-vous vraiment supprimer cet employé?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonText: "Oui, supprimer!"
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(id).submit();
