@@ -14,7 +14,7 @@
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>Utilisateur</th>
+
                     <th>Type</th>
                     <th>Date Début</th>
                     <th>Date Fin</th>
@@ -26,7 +26,7 @@
             <tbody>
                 @foreach($conges as $conge)
                 <tr>
-                    <td>{{ $conge->user->name }}</td>
+                    
                     <td>{{ $conge->type }}</td>
                     <td>{{ $conge->date_debut }}</td>
                     <td>{{ $conge->date_fin }}</td>

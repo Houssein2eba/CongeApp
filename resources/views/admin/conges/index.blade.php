@@ -12,6 +12,7 @@
                     <th>Type</th>
                     <th>Date Début</th>
                     <th>Date Fin</th>
+                    <th>Justificatif</th>
                     <th>Statut</th>
                     <th>Motif</th>
                     <th>Remarque</th>
@@ -24,6 +25,11 @@
                     <td>{{ $conge->type }}</td>
                     <td>{{ $conge->date_debu }}</td>
                     <td>{{ $conge->date_fin }}</td>
+                    <td>
+                        <a href="{{ asset($conge->justificatif) }}" target="_blank">
+                            <img src="{{ asset($conge->justificatif) }}" alt="" width="100px" height="100px">
+                        </a>
+                    </td>
                     <td>
                         <span class="badge badge-{{
                             $conge->statut == 'Approuve' ? 'success' :
