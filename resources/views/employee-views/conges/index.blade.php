@@ -1,8 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('content')
-<div class="container">
-    <h2 class="my-4">Liste des Demandes de Congé</h2>
+
+<div class="container-fluid">
+    <div class="w-100"><x-toast :message="session('success')" type="success" />
+    <x-toast :message="session('error')" type="danger" /></div>
+    <h2 class="my-4">Liste des Congés</h2>
+    @extends('layouts.alert')
+
+
 
     <div class="table-responsive shadow-lg">
         <table class="table table-striped table-hover">
@@ -14,7 +20,7 @@
                     <th>Date Fin</th>
                     <th>Statut</th>
                     <th>Motif</th>
-                    <th>Remarque</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +28,7 @@
                 <tr>
                     <td>{{ $conge->user->name }}</td>
                     <td>{{ $conge->type }}</td>
-                    <td>{{ $conge->date_debu }}</td>
+                    <td>{{ $conge->date_debut }}</td>
                     <td>{{ $conge->date_fin }}</td>
                     <td>
                         <span class="badge badge-{{
@@ -32,7 +38,7 @@
                         </span>
                     </td>
                     <td>{{ $conge->motif ?? '-' }}</td>
-                    <td>{{ $conge->remarque ?? '-' }}</td>
+
                 </tr>
                 @endforeach
             </tbody>

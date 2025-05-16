@@ -21,6 +21,8 @@ Route::get('/',function(){
     return view('welcome');
 })->name('welcome');
 
+Route::get('/conges', [\App\Http\Controllers\CongeController::class, 'index']);
+
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -49,11 +51,11 @@ Route::middleware(['auth'])->group(function() {
 
         // Departements routes
         Route::resource('departement', DepartementController::class);
-        
+
 
         // Conges routes
         Route::controller(CongeController::class)->group(function() {
-            Route::get('/conges', 'index')->name('conges.index');
+            Route::get('/conges/latest', 'index')->name('conges.index');
 
 
 
@@ -73,5 +75,3 @@ Route::middleware(['auth'])->group(function() {
 
 
 });
-
-

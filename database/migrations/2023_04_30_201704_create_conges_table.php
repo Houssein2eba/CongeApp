@@ -17,12 +17,13 @@ return new class extends Migration
             $table->date('date_debut');
             $table->date('date_fin');
             $table->text('motif')->nullable();
+            $table->string('justificatif');
             $table->enum('statut',['En attente','Approuve','Refuser'])->default('En attente');
            // $table->timestamps('approved_at')->nullable();
             $table->text('remarque')->nullable();
             $table->timestamps();
             $table->foreignId('user_id') ->constrained('users')->onDelete('cascade');
-            
+
         });
     }
 
