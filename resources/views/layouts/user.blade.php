@@ -72,9 +72,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('employe.conge.index')}}" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>My Leave Requests</p>
+                                <p>Mes Conges</p>
                             </a>
                         </li>
                         <li class="nav-item">

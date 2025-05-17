@@ -54,8 +54,8 @@ Route::middleware(['auth'])->group(function() {
 
 
         // Conges routes
-        Route::controller(CongeController::class)->group(function() {
-            Route::get('/conges', 'index')->name('conges.index');
+        Route::prefix('/conges')->name('conges.')->group(function() {
+            Route::get('/', [CongeController::class,'index'])->name('index');
 
 
 

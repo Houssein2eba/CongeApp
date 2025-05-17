@@ -1,12 +1,19 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
+@section('title')
+    Demandes de Congé | Laravel Employes App
+@endsection
+
+@section('content_header')
+    <h1>Gestion des Congé</h1>
+@endsection
 @section('content')
 <div class="container">
-    <h2 class="my-4">Liste des Demandes de Congé</h2>
+    
 
     <div class="table-responsive shadow-lg">
         <table class="table table-striped table-hover">
-            <thead class="thead-dark">
+            <thead class="thead-dark text-center">
                 <tr>
                     <th>Utilisateur</th>
                     <th>Type</th>
@@ -15,7 +22,7 @@
                     <th>Justificatif</th>
                     <th>Statut</th>
                     <th>Motif</th>
-                    <th>Remarque</th>
+                    <th colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +30,7 @@
                 <tr>
                     <td>{{ $conge->user->name }}</td>
                     <td>{{ $conge->type }}</td>
-                    <td>{{ $conge->date_debu }}</td>
+                    <td>{{ $conge->date_debut }}</td>
                     <td>{{ $conge->date_fin }}</td>
                     <td>
                         <a href="{{ asset($conge->justificatif) }}" target="_blank">
@@ -38,7 +45,8 @@
                         </span>
                     </td>
                     <td>{{ $conge->motif ?? '-' }}</td>
-                    <td>{{ $conge->remarque ?? '-' }}</td>
+                    <td><a href="">Refuser</a></td>
+                    <td><a href="">Accepter</a></td>
                 </tr>
                 @endforeach
             </tbody>
