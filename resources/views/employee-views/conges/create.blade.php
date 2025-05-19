@@ -20,9 +20,9 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold text-primary">Type:</label>
                                 <select name="type" class="form-select">
-                                    <option value="vacances">🏖 Vacances</option>
-                                    <option value="maladie">🤕 Maladie</option>
-                                    <option value="télétravail">💻 Télétravail</option>
+                                    <option value="vacances"> Vacances</option>
+                                    <option value="maladie">Maladie</option>
+                                    <option value="télétravail">Exceptionnel</option>
                                 </select>
                             </div>
 
