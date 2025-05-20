@@ -10,7 +10,7 @@
 
 @section('content_header')
 
-   <h1>Ajouter un employe</h1> 
+   <h1>Ajouter hun employe</h1> 
 
 @endsection
 

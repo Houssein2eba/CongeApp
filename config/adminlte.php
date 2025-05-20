@@ -349,6 +349,7 @@ return [
                 ],
            ],
         ],
+        
         [
             'text' => 'Départements',
             'icon' => 'fas fa-building',
@@ -358,7 +359,7 @@ return [
                     'url' => 'admin/departement',
                     'icon' => 'fas fa-list'
                 ],
-                
+
             ],
         ],
 
@@ -373,21 +374,8 @@ return [
                     'url' => 'admin/conges',
                     'icon' => 'fas fa-fw fa-list-ol'
                 ],
-                [
-                    'text' => 'Nouveau Congé',
-                    'url' => 'admin/conges/create',
-                    'icon' => 'fas fa-plus'
-                ],
-                [
-                    'text' => 'Types de congés',
-                    'url' => 'admin/parametres/types-conges',
-                    'icon' => 'fas fa-list'
-                ],
-                [
-                    'text' => 'Politiques de congés',
-                    'url' => 'admin/parametres/politiques',
-                    'icon' => 'fas fa-file-alt'
-                ],
+                
+                
             ],
         ],
             // Rapports

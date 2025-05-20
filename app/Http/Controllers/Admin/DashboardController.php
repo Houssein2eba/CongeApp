@@ -11,8 +11,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $stats = [
-            'total_employees' => User::count(),
+            'total_employees' => User::role('employee')->count(),
             'total_departments' => Departement::count(),
         ];
         return view('admin.home', compact('stats'));
