@@ -22,7 +22,7 @@ class CongeController extends Controller
         if(!$conge){
             return redirect()->back()->with('error', 'Congé introuvable');
         }
-        dd($conge);
+        
         $conge->update(['statut' => 'Refuser']);
         Mail::queue(new EmployeCongeMail($conge->user,$conge->statut, $conge->remarque ?? 'no remarque sent by admin', 'http://127.0.0.1:8000/employe/conges'));
 
