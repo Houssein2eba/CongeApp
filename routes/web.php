@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function() {
         // Conges routes
         Route::prefix('/conges')->name('conges.')->group(function() {
             Route::get('/', [CongeController::class,'index'])->name('index');
+            Route::put('/{id}', [CongeController::class,'refuser'])->name('destroy');
 
 
 
