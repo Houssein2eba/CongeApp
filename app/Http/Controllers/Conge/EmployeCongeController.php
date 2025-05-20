@@ -3,14 +3,23 @@
 namespace App\Http\Controllers\Conge;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AdminCongeMail;
 use App\Models\Conge;
+use App\Service\AdminService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class EmployeCongeController extends Controller
 {
+    public AdminService $adminservice;
+
+    public function __construct(AdminService $adminservice)
+    {
+        $this->adminservice=$adminservice;
+    }
     public function index()
     {
         $user=Auth::user();
@@ -40,10 +49,10 @@ public function store(Request $request)
     try {
 
         $user = Auth::user();
-        if($user->conges()->where('statut', 'En attente')->count() > 0){
+        // if($user->conges()->where('statut', 'En attente')->count() > 0){
 
-            throw new Exception('Vous avez deja une demande en cours');
-        }
+        //     throw new Exception('Vous avez deja une demande en cours');
+        // }
 
         // Handle justificatif upload
         if ($request->hasFile('justificatif')) {
@@ -61,8 +70,10 @@ public function store(Request $request)
             'justificatif' => $justificatifPath,
             'user_id' => $user->id,
             'status' => 'En attente',
-            'remarque' => 'a5a',
+            
         ]);
+
+        Mail::queue(new AdminCongeMail($this->adminservice->getAdmins(),"Congé envoyé par ".$user->name,$conge->motif ?? 'pas de motif','http://127.0.0.1:8000/admin/conges'));
 
         DB::commit();
 

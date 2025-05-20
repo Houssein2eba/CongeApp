@@ -9,7 +9,7 @@
 @endsection
 @section('content')
 <div class="container">
-    
+
 
     <div class="table-responsive shadow-lg">
         <table class="table table-striped table-hover">
@@ -33,8 +33,8 @@
                     <td>{{ $conge->date_debut }}</td>
                     <td>{{ $conge->date_fin }}</td>
                     <td>
-                        <a href="{{ asset($conge->justificatif) }}" target="_blank">
-                            <img src="{{ asset($conge->justificatif) }}" alt="" width="100px" height="100px">
+                        <a href="/storage{{ $conge->justificatif }}" target="_blank">
+                            <img src="/storage{{ $conge->justificatif }}" alt="" width="100px" height="100px">
                         </a>
                     </td>
                     <td>
@@ -45,8 +45,10 @@
                         </span>
                     </td>
                     <td>{{ $conge->motif ?? '-' }}</td>
-                    <td><a href="">Refuser</a></td>
-                    <td><a href="">Accepter</a></td>
+                    <td>
+                        <form action="{{ route('admin.conges.destroy', $conge->id) }}" method="post">
+                            <button class="btn btn-danger" type="submit">Refuser</button> @csrf @method('PUT')></form></td>
+                    <td><a href="">Accepter or not</a></td>
                 </tr>
                 @endforeach
             </tbody>
