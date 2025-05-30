@@ -1,35 +1,27 @@
 @extends('adminlte::page')
 
-
-
 @section('title')
-
-    Ajouter un employé |Laravel Employes App
-
+    Ajouter un employé | Laravel Employés App
 @endsection
 
 @section('content_header')
-
-   <h1>Ajouter hun employe</h1> 
-
+    <h1>Ajouter un Employé</h1>
 @endsection
 
 @section('content')
-    <div class="container">
-        @include('layouts.alert')
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="card my-5">
-                    <div class="card-header">
-                        <div class="text-center font-weight-bold text-uppercase">
-                            <h4>Ajouter un employe</h4>
-                        </div>
-                    </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>📝 Ajouter un Employé</h4>
+                </div>
+                <div class="card-body p-4">
+                    @include('layouts.alert')
                     <livewire:employees.create />
-                    
-                
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

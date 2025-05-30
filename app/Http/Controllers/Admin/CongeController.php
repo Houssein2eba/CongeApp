@@ -28,6 +28,20 @@ class CongeController extends Controller
 
         return redirect()->back()->with('success', 'Congé refus avec sucees');
     }
+    public function accepter($id)
+    {
+    // البحث عن الطلب
+    $conge = Conge::findOrFail($id);
+
+    // تحديث الحالة إلى "Approuvé"
+    $conge->update([
+        'statut' => 'Approuve'
+    ]);
+
+    // رسالة نجاح وإعادة التوجيه
+    return redirect()->route('admin.conges.index')->with('success', 'تم قبول الطلب بنجاح!');
+    }
+
 
 
 }

@@ -6,67 +6,95 @@
         <div class="col-md-6">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white text-center">
-                    <h4>👤 Afficher un employé</h4>
+                    <h4>📝 Ajouter un Employé</h4>
                 </div>
                 <div class="card-body p-4">
                     @include('layouts.alert')
 
-                    @if(isset($employe))
+                    <form wire:submit.prevent="store">
                         <table class="table table-bordered">
                             <tr>
                                 <th class="fw-bold text-primary">N° d’enregistrement:</th>
-                                <td>{{ $employe->registration_number}}</td>
+                                <td>
+                                    <input type="text" wire:model.defer="registration_number" class="form-control" placeholder="Ex: EMP12345" required>
+                                    @error('registration_number') <span class="text-danger">{{ $message}}</span> @enderror
+                                </td>
                             </tr>
                             <tr>
                                 <th class="fw-bold text-primary">Nom Complet:</th>
-                                <td>{{ $employe->name}}</td>
+                                <td>
+                                    <input type="text" wire:model.defer="name" class="form-control" placeholder="Nom complet" required>
+                                    @error('name') <span class="text-danger">{{ $message}}</span> @enderror
+                                </td>
                             </tr>
                             <tr>
                                 <th class="fw-bold text-primary">Département:</th>
-                                <td>{{ $employe->departement->name}}</td>
+                                <td>
+                                    <select wire:model.defer="departement" class="form-control" required>
+                                        <option value="">Sélectionnez un département</option>
+                                        @foreach($departements as $departement)
+                                            <option value="{{ $departement->id}}">{{ $departement->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('departement') <span class="text-danger">{{ $message}}</span> @enderror
+                                </td>
                             </tr>
                             <tr>
                                 <th class="fw-bold text-primary">Date d’embauche:</th>
-                                <td>{{ $employe->hire_date}}</td>
+                                <td>
+                                    <input type="date" wire:model.defer="hire_date" class="form-control" required>
+                                    @error('hire_date') <span class="text-danger">{{ $message}}</span> @enderror
+                                </td>
                             </tr>
                             <tr>
                                 <th class="fw-bold text-primary">Email:</th>
-                                <td>{{ $employe->email}}</td>
+                                <td>
+                                    <input type="email" wire:model.defer="email" class="form-control" placeholder="Email professionnel" required>
+                                    @error('email') <span class="text-danger">{{ $message}}</span> @enderror
+                                </td>
                             </tr>
                             <tr>
                                 <th class="fw-bold text-primary">Téléphone:</th>
-                                <td>{{ $employe->phone}}</td>
-                            </tr>
-                            <tr>
-                                <th class="fw-bold text-primary">Adresse:</th>
-                                <td>{{ $employe->address}}</td>
-                            </tr>
-                            <tr>
-                                <th class="fw-bold text-primary">Ville:</th>
-                                <td>{{ $employe->city}}</td>
-                            </tr>
-                        </table>
+                                <td<input type="text" wire:model.defer="phone" class="form-control" placeholder="Format: 23456789" required>
+                        @error('phone') <span class="text-danger">{{ $message}}</span> @enderror
+                    </td>
+                </tr>
+                <tr>
+                    <th class="fw-bold text-primary">Adresse:</th>
+                    <td>
+                        <input type="text" wire:model.defer="address" class="form-control" placeholder="Adresse complète" required>
+                        @error('address') <span class="text-danger">{{ $message}}</span> @enderror
+                    </td>
+                </tr>
+                <tr>
+                    <th class="fw-bold text-primary">Ville:</th>
+                    <td>
+                        <input type="text" wire:model.defer="city" class="form-control" placeholder="Ex: Paris" required>
+                        @error('city') <span class="text-danger">{{ $message}}</span> @enderror
+                    </td>
+                </tr>
+                <tr>
+                    <th class="fw-bold text-primary">Photo de Profil:</th>
+                    <td>
+                        <input type="file" wire:model="image" class="form-control">
+                        @error('image') <span class="text-danger">{{ $message}}</span> @enderror
 
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ route('admin.employe.edit', $employe->id)}}" class="btn btn-warning rounded-pill">
-                                <i class="fas fa-edit"></i> Modifier
-                            </a>
+                        @if ($image)
+                            <img src="{{ $image->temporaryUrl()}}" class="img-fluid mt-2" style="max-width: 150px; border-radius: 10px;">
+                        @endif
+                    </td>
+                </tr>
+            </table>
 
-                            <form action="{{ route('admin.employe.destroy', $employe->id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger rounded-pill">
-                                    <i class="fas fa-trash"></i> Supprimer
-                                </button>
-                            </form>
-                        </div>
-                    @else
-                        <div class="alert alert-danger text-center mt-3">❌ Employé introuvable!</div>
-                    @endif
-                </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success rounded-pill px-4">
+                    <i class="fas fa-plus"></i> Créer Employé
+                </button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+</div>
+</div>
+</div>
 @endsection
-

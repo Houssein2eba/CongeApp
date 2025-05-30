@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function() {
         Route::prefix('/conges')->name('conges.')->group(function() {
             Route::get('/', [CongeController::class,'index'])->name('index');
             Route::put('/{id}', [CongeController::class,'refuser'])->name('destroy');
-
+            Route::put('/{id}/accept',[CongeController::class,'accepter'])->name('accept');
 
 
         });
@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/conges', [EmployeCongeController::class, 'index'])->name('conge.index');
         Route::get('/conges/create', [EmployeCongeController::class, 'create'])->name('conge.create');
         Route::post('/conges/store', [EmployeCongeController::class, 'store'])->name('conge.store');
+       
     });
 
 

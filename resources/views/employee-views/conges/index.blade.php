@@ -12,7 +12,7 @@
 
     <div class="table-responsive shadow-lg">
         <table class="table table-striped table-hover">
-            <thead class="thead-dark">
+            <thead class="bg-primary text-white">
                 <tr>
 
                     <th>Type</th>
@@ -25,23 +25,25 @@
             </thead>
             <tbody>
                 @foreach($conges as $conge)
-                <tr>
-                    
-                    <td>{{ $conge->type }}</td>
-                    <td>{{ $conge->date_debut }}</td>
-                    <td>{{ $conge->date_fin }}</td>
+                <tr class="align-middle ">
+                    <td><i class="fas fa-calendar-alt text-primary"></i> {{ $conge->type}}</td>
+                    <td><i class="fas fa-clock text-success"></i> {{ $conge->date_debut}}</td>
+                    <td><i class="fas fa-clock text-danger"></i> {{ $conge->date_fin}}</td>
                     <td>
-                        <span class="badge badge-{{
-                            $conge->statut == 'Approuve' ? 'success' :
-                            ($conge->statut == 'Refuser' ? 'danger' : 'warning') }}">
-                            {{ $conge->statut }}
+                        <span class="badge bg-{{
+                            $conge->statut == 'Approuve'? 'success':
+                            ($conge->statut == 'Refuser'? 'danger': 'warning')}}">
+                            <i class="fas fa-{{
+                                $conge->statut == 'Approuve'? 'check-circle':
+                                ($conge->statut == 'Refuser'? 'times-circle': 'hourglass-half')}}"></i>
+                            {{ $conge->statut}}
                         </span>
                     </td>
-                    <td>{{ $conge->motif ?? '-' }}</td>
-
+                    <td class="fw-bold text-secondary">{{ $conge->motif?? '-'}}</td>
                 </tr>
                 @endforeach
             </tbody>
+            
         </table>
     </div>
 </div>

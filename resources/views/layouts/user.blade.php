@@ -68,7 +68,7 @@
                         <li class="nav-item">
                             <a href="{{ route('employe.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>Dashboard</p>
+                                <p>Acceuil</p>
                             </a>
                         </li>
                         <li class="nav-item">

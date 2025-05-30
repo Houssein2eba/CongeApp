@@ -39,7 +39,7 @@ public function store(Request $request)
         'type' => 'required|string|in:vacances,maladie,télétravail',
         'date_debut' => 'required|date',
         'date_fin' => 'required|date|after:date_debut',
-        'justificatif' => 'required|mimes:pdf,jpg,png',
+        'justificatif' => 'nullable|mimes:pdf,jpg,png',
         'motif' => 'nullable|string',
     ]);
 
