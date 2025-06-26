@@ -11,11 +11,10 @@
    <h1>Tableau de bord</h1>
 
 @endsection
-
 @section('content')
-    <div class="container">
-        <div class="row my-5">
-            <div class="col-md-4">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-md-3">
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>{{$stats['total_employees']}}</h3>
@@ -34,7 +33,7 @@
                 </div>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>{{$stats['total_departments']}}</h3>
@@ -65,9 +64,18 @@
                 </div>
             </div> --}}
 
-
+                
             </div>
 
         </div>
+        
     </div>
+    <!-- Main Footer -->
+    <footer class="main-footer fixed-bottom text-center p-3">
+        <div class="float-right d-none d-sm-inline">
+            Employee Portal
+        </div>
+        <strong>Copyright &copy; {{ date('Y') }} CongeApp.</strong> All rights reserved.
+    </footer>
 @endsection
+

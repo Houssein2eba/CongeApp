@@ -17,11 +17,15 @@
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
     @stack('styles')
     @livewireStyles
+    
+    
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    
+            <div class="wrapper">
+                <!-- Navbar -->
+                <nav class="main-header navbar navbar-expand bg-primary navbar-light">
+            
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -54,6 +58,7 @@
         </nav>
 
         <!-- Main Sidebar Container -->
+        
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('employe.dashboard') }}" class="brand-link">
@@ -67,7 +72,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                         <li class="nav-item">
                             <a href="{{ route('employe.dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="nav-icon fas fa-home"></i>
                                 <p>Acceuil</p>
                             </a>
                         </li>
@@ -115,8 +120,8 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
+        <footer class="main-footer text-center">
+            <div class="float-right d-none d-sm-inline ">
                 Employee Portal
             </div>
             <strong>Copyright &copy; {{ date('Y') }} CongeApp.</strong> All rights reserved.
