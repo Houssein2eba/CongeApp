@@ -41,13 +41,13 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Employes routes
-        Route::get('/employes', [EmployesController::class, 'index'])->name('employe.index');
-        Route::get('/employes/create', [EmployesController::class, 'create'])->name('employe.create');
-        Route::get('/employes/{id}', [EmployesController::class, 'show'])->name('employe.show');
-        Route::get('/employes/{id}/edit', [EmployesController::class, 'edit'])->name('employe.edit');
-        Route::put('/employes/{id}', [EmployesController::class, 'update'])->name('employe.update');
-        Route::delete('/employes/{id}', [EmployesController::class, 'destroy'])->name('employe.destroy');
-        Route::post('/employes/store', [EmployesController::class, 'store'])->name('employe.store');
+        Route::get('/employes', [EmployesController::class, 'index'])->name('employes.index');
+        Route::get('/employes/create', [EmployesController::class, 'create'])->name('employes.create');
+        Route::get('/employes/{id}', [EmployesController::class, 'show'])->name('employes.show');
+        Route::get('/employes/{id}/edit', [EmployesController::class, 'edit'])->name('employes.edit');
+        Route::put('/employes/{id}', [EmployesController::class, 'update'])->name('employes.update');
+        Route::delete('/employes/{id}', [EmployesController::class, 'destroy'])->name('employes.destroy');
+        Route::post('/employes/store', [EmployesController::class, 'store'])->name('employes.store');
 
         // Departements routes
         Route::resource('departement', DepartementController::class);
@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::middleware(['auth'])->group(function () {
 
-    Route::prefix('employe')->name('employe.')->group(function () {
+    Route::prefix('employe')->name('employes.')->group(function () {
         Route::get('/dashboard', [EmployeeHomeController::class, 'index'])->name('dashboard');
         Route::get('/conges', [EmployeCongeController::class, 'index'])->name('conge.index');
         Route::get('/conges/create', [EmployeCongeController::class, 'create'])->name('conge.create');

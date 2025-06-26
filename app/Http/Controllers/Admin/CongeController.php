@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EmployeCongeMail;
+use App\Notifications\CongeStatusNotification;
 use Illuminate\Http\Request;
 use App\Models\Conge;
 use Illuminate\Support\Facades\Mail;
@@ -24,6 +25,7 @@ class CongeController extends Controller
         }
         
         $conge->update(['statut' => 'Refuser']);
+        $conge->user->notify(new CongeStatusNotification($conge));
         Mail::queue(new EmployeCongeMail($conge->user,$conge->statut, $conge->remarque ?? 'no remarque sent by admin', 'http://127.0.0.1:8000/employe/conges'));
 
         return redirect()->back()->with('success', 'Congé refus avec sucees');
@@ -37,6 +39,7 @@ class CongeController extends Controller
     $conge->update([
         'statut' => 'Approuve'
     ]);
+    $conge->user->notify(new CongeStatusNotification($conge));
 
     // رسالة نجاح وإعادة التوجيه
     return redirect()->route('admin.conges.index')->with('success', 'تم قبول الطلب بنجاح!');
