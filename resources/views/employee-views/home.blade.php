@@ -36,7 +36,7 @@
 
     <!-- Stats Cards -->
     <div class="row mb-4">
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-3 col-md-6 mb-3">
             <div class="stats-card bg-gradient-info text-white border-0 shadow-lg">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-3 col-md-6 mb-3">
             <div class="stats-card bg-gradient-warning text-white border-0 shadow-lg">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-6 mb-3">
+        <div class="col-lg-3 col-md-6 mb-3">
             <div class="stats-card bg-gradient-success text-white border-0 shadow-lg">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
@@ -87,6 +87,25 @@
                             <button class="btn btn-light btn-sm" onclick="showDepartmentInfo()">
                                 <i class="fas fa-info mr-1"></i>Détails
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card bg-gradient-primary text-white border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon mr-3">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h3 class="mb-1">{{ auth()->user()->unreadNotifications()->count() }}</h3>
+                            <p class="mb-2 opacity-75">Notifications non lues</p>
+                            <a href="{{ route('notifications.index') }}" class="btn btn-light btn-sm">
+                                <i class="fas fa-eye mr-1"></i>Voir toutes 
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -138,6 +157,21 @@
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <div class="quick-action-item">
+                                <a href="{{ route('notifications.index') }}" class="quick-action-link">
+                                    <div class="quick-action-card bg-warning text-white">
+                                        <div class="card-body text-center p-4">
+                                            <div class="action-icon mb-3">
+                                                <i class="fas fa-bell"></i>
+                                            </div>
+                                            <h6 class="mb-2">Notifications</h6>
+                                            <small class="opacity-75">{{ auth()->user()->unreadNotifications()->count() }} non lues</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="quick-action-item">
                                 <a href="#" class="quick-action-link" onclick="showProfile()">
                                     <div class="quick-action-card bg-success text-white">
                                         <div class="card-body text-center p-4">
@@ -146,21 +180,6 @@
                                             </div>
                                             <h6 class="mb-2">Mon profil</h6>
                                             <small class="opacity-75">Informations</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-3">
-                            <div class="quick-action-item">
-                                <a href="#" class="quick-action-link" onclick="showCalendar()">
-                                    <div class="quick-action-card bg-warning text-white">
-                                        <div class="card-body text-center p-4">
-                                            <div class="action-icon mb-3">
-                                                <i class="fas fa-calendar-alt"></i>
-                                            </div>
-                                            <h6 class="mb-2">Calendrier</h6>
-                                            <small class="opacity-75">Vue d'ensemble</small>
                                         </div>
                                     </div>
                                 </a>
@@ -177,52 +196,59 @@
         <div class="col-lg-8 mb-4">
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0">
-                        <i class="fas fa-history text-primary mr-2"></i>
-                        Activité Récente
-                    </h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-history text-primary mr-2"></i>
+                            Activité Récente
+                        </h5>
+                        <a href="{{ route('employes.conge.index') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-eye mr-1"></i>Voir tout
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="activity-timeline">
-                        <div class="timeline-item p-3 border-bottom">
-                            <div class="d-flex align-items-center">
-                                <div class="timeline-icon bg-primary">
-                                    <i class="fas fa-calendar-plus text-white"></i>
+                        @php
+                            $recentConges = auth()->user()->conges()->latest()->limit(3)->get();
+                        @endphp
+                        
+                        @if($recentConges->count() > 0)
+                            @foreach($recentConges as $conge)
+                            <div class="timeline-item p-3 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <div class="timeline-icon {{ $conge->status === 'approved' ? 'bg-success' : ($conge->status === 'pending' ? 'bg-warning' : 'bg-danger') }}">
+                                        <i class="fas {{ $conge->status === 'approved' ? 'fa-check' : ($conge->status === 'pending' ? 'fa-clock' : 'fa-times') }} text-white"></i>
+                                    </div>
+                                    <div class="ml-3 flex-grow-1">
+                                        <p class="mb-1">
+                                            <strong>
+                                                @if($conge->status === 'approved')
+                                                    Congé approuvé
+                                                @elseif($conge->status === 'pending')
+                                                    Demande de congé soumise
+                                                @else
+                                                    Congé refusé
+                                                @endif
+                                            </strong>
+                                        </p>
+                                        <p class="text-muted mb-1">
+                                            Du {{ \Carbon\Carbon::parse($conge->start_date)->format('d/m/Y') }} 
+                                            au {{ \Carbon\Carbon::parse($conge->end_date)->format('d/m/Y') }}
+                                        </p>
+                                        <small class="text-muted">{{ $conge->created_at->diffForHumans() }}</small>
+                                    </div>
+                                    <span class="badge badge-{{ $conge->status === 'approved' ? 'success' : ($conge->status === 'pending' ? 'warning' : 'danger') }}">
+                                        {{ ucfirst($conge->status) }}
+                                    </span>
                                 </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Demande de congé soumise</strong></p>
-                                    <p class="text-muted mb-1">Congé du 15 au 20 décembre 2024</p>
-                                    <small class="text-muted">Il y a 2 heures</small>
-                                </div>
-                                <span class="badge badge-warning">En attente</span>
                             </div>
-                        </div>
-                        <div class="timeline-item p-3 border-bottom">
-                            <div class="d-flex align-items-center">
-                                <div class="timeline-icon bg-success">
-                                    <i class="fas fa-check text-white"></i>
-                                </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Congé approuvé</strong></p>
-                                    <p class="text-muted mb-1">Congé du 10 au 12 novembre 2024</p>
-                                    <small class="text-muted">Il y a 3 jours</small>
-                                </div>
-                                <span class="badge badge-success">Approuvé</span>
+                            @endforeach
+                        @else
+                            <div class="text-center py-4">
+                                <i class="fas fa-calendar-times text-muted mb-3" style="font-size: 3rem;"></i>
+                                <p class="text-muted mb-0">Aucune activité récente</p>
                             </div>
-                        </div>
-                        <div class="timeline-item p-3">
-                            <div class="d-flex align-items-center">
-                                <div class="timeline-icon bg-info">
-                                    <i class="fas fa-user-edit text-white"></i>
-                                </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Profil mis à jour</strong></p>
-                                    <p class="text-muted mb-1">Informations personnelles modifiées</p>
-                                    <small class="text-muted">Il y a 1 semaine</small>
-                                </div>
-                                <span class="badge badge-info">Complété</span>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -231,46 +257,51 @@
         <div class="col-lg-4 mb-4">
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0">
-                        <i class="fas fa-bell text-primary mr-2"></i>
-                        Notifications
-                    </h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bell text-primary mr-2"></i>
+                            Notifications Récentes
+                        </h5>
+                        <a href="{{ route('notifications.index') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-eye mr-1"></i>Toutes
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="notification-list">
-                        <div class="notification-item p-3 border-bottom">
-                            <div class="d-flex align-items-start">
-                                <div class="notification-icon bg-warning">
-                                    <i class="fas fa-exclamation text-white"></i>
-                                </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Rappel de congé</strong></p>
-                                    <small class="text-muted">Votre demande de congé est en attente depuis 3 jours</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notification-item p-3 border-bottom">
-                            <div class="d-flex align-items-start">
-                                <div class="notification-icon bg-info">
-                                    <i class="fas fa-info text-white"></i>
-                                </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Nouvelle fonctionnalité</strong></p>
-                                    <small class="text-muted">Le calendrier des congés est maintenant disponible</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notification-item p-3">
-                            <div class="d-flex align-items-start">
-                                <div class="notification-icon bg-success">
-                                    <i class="fas fa-check text-white"></i>
-                                </div>
-                                <div class="ml-3 flex-grow-1">
-                                    <p class="mb-1"><strong>Profil complet</strong></p>
-                                    <small class="text-muted">Toutes vos informations sont à jour</small>
+                        @php
+                            $recentNotifications = auth()->user()->notifications()->latest()->limit(5)->get();
+                        @endphp
+                        
+                        @if($recentNotifications->count() > 0)
+                            @foreach($recentNotifications as $notification)
+                            <div class="notification-item p-3 border-bottom {{ $notification->read_at ? 'read' : 'unread' }}">
+                                <div class="d-flex align-items-start">
+                                    <div class="notification-icon {{ $notification->read_at ? 'bg-secondary' : \App\Helpers\NotificationHelper::getNotificationIconClass($notification) }}">
+                                        <i class="fas {{ \App\Helpers\NotificationHelper::getNotificationIcon($notification) }} text-white"></i>
+                                    </div>
+                                    <div class="ml-3 flex-grow-1">
+                                        <p class="mb-1 {{ $notification->read_at ? 'text-muted' : 'font-weight-bold' }}">
+                                            {{ $notification->data['title'] ?? 'Notification' }}
+                                        </p>
+                                        <small class="text-muted">
+                                            {{ \App\Helpers\NotificationHelper::getNotificationSummary($notification) }}
+                                        </small>
+                                        <br>
+                                        <small class="text-muted">{{ \App\Helpers\NotificationHelper::formatNotificationTime($notification) }}</small>
+                                    </div>
+                                    @if(!$notification->read_at)
+                                        <span class="badge badge-primary badge-pill">Nouveau</span>
+                                    @endif
                                 </div>
                             </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="text-center py-4">
+                                <i class="fas fa-bell-slash text-muted mb-3" style="font-size: 3rem;"></i>
+                                <p class="text-muted mb-0">Aucune notification</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -401,6 +432,15 @@
 
 .timeline-item:hover, .notification-item:hover {
     background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+    background-color: rgba(0, 123, 255, 0.05);
+    border-left: 3px solid #007bff;
+}
+
+.notification-item.read {
+    opacity: 0.7;
 }
 
 .card {

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\EmployesController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CongeController;
+use App\Http\Controllers\NotificationsController;
 use App\Livewire\Conges\Create;
 
 
@@ -52,14 +53,13 @@ Route::middleware(['auth'])->group(function() {
         // Departements routes
         Route::resource('departement', DepartementController::class);
 
-
         // Conges routes
         Route::prefix('/conges')->name('conges.')->group(function() {
             Route::get('/', [CongeController::class,'index'])->name('index');
-            Route::put('/{id}', [CongeController::class,'refuser'])->name('destroy');
-            Route::put('/{id}/accept',[CongeController::class,'accepter'])->name('accept');
-
-
+            Route::get('/{id}', [CongeController::class,'show'])->name('show');
+            Route::post('/{id}/accept', [CongeController::class,'accepter'])->name('accept');
+            Route::post('/{id}/refuse', [CongeController::class,'refuser'])->name('refuse');
+            Route::delete('/{id}', [CongeController::class,'destroy'])->name('destroy');
         });
     });
 });
@@ -75,5 +75,19 @@ Route::middleware(['auth'])->group(function() {
        
     });
 
+    // Notifications routes
+    Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/', [NotificationsController::class, 'index'])->name('index');
+        Route::post('/{id}/mark-as-read', [NotificationsController::class, 'markAsRead'])->name('mark-as-read');
+        Route::post('/mark-all-as-read', [NotificationsController::class, 'markAllAsRead'])->name('mark-all-as-read');
+        Route::delete('/{id}', [NotificationsController::class, 'destroy'])->name('destroy');
+        Route::delete('/clear-all', [NotificationsController::class, 'clearAll'])->name('clear-all');
+        Route::get('/count', [NotificationsController::class, 'count'])->name('count');
+        Route::get('/stats', [NotificationsController::class, 'stats'])->name('stats');
+        Route::get('/{id}/read-and-redirect', [NotificationsController::class, 'markAsReadAndRedirect'])->name('read-and-redirect');
+        Route::get('/unread-count', [NotificationsController::class, 'unreadCount'])->name('unread-count');
+        Route::get('/recent', [NotificationsController::class, 'recent'])->name('recent');
+        Route::get('/filtered', [NotificationsController::class, 'getFiltered'])->name('filtered');
+    });
 
 });
