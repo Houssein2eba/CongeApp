@@ -215,7 +215,7 @@
                                 <div class="col-12">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="confirmCheck">
+                                            <input class="form-check-input" type="checkbox" id="confirmCheck" name="confirmation">
                                             <label class="form-check-label" for="confirmCheck">
                                                 <i class="fas fa-check-circle mr-1"></i>
                                                 Je confirme que les informations fournies sont exactes
@@ -230,7 +230,7 @@
                                     <div class="mt-3">
                                         <small class="text-muted" id="validationMessage">
                                             <i class="fas fa-info-circle mr-1"></i>
-                                            Pour activer le bouton, veuillez sélectionner un type de congé et des dates valides.
+                                            Pour activer le bouton, veuillez remplir les champs obligatoires et cocher la case de confirmation.
                                         </small>
                                     </div>
                                 </div>
@@ -448,6 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSubmitButton() {
         const hasDates = dateDebut.value && dateFin.value;
         const hasType = typeSelect.value && typeSelect.value.trim() !== '';
+        const isConfirmed = confirmCheck.checked;
         const validationMessage = document.getElementById('validationMessage');
         
         // Check if dates are valid (end date after start date)
@@ -458,8 +459,8 @@ document.addEventListener('DOMContentLoaded', function() {
             datesValid = end >= start;
         }
         
-        // Enable button if we have type and valid dates
-        const shouldEnable = hasType && hasDates && datesValid;
+        // Enable button if we have type, valid dates and confirmation
+        const shouldEnable = hasType && hasDates && datesValid && isConfirmed;
         
         submitBtn.disabled = !shouldEnable;
         
@@ -483,6 +484,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (!datesValid) {
                 validationMessage.innerHTML = '<i class="fas fa-exclamation-triangle text-warning mr-1"></i>La date de fin doit être après la date de début.';
                 validationMessage.className = 'text-warning';
+            } else if (!isConfirmed) {
+                validationMessage.innerHTML = '<i class="fas fa-info-circle text-info mr-1"></i>Veuillez confirmer que les informations sont exactes.';
+                validationMessage.className = 'text-info';
             } else {
                 validationMessage.innerHTML = '<i class="fas fa-info-circle text-info mr-1"></i>Veuillez remplir tous les champs obligatoires.';
                 validationMessage.className = 'text-info';
@@ -494,6 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hasType: hasType,
             hasDates: hasDates,
             datesValid: datesValid,
+            isConfirmed: isConfirmed,
             shouldEnable: shouldEnable
         });
     }
@@ -516,14 +521,13 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSubmitButton();
     });
 
-    // Make confirmation checkbox optional - just for user awareness
     confirmCheck.addEventListener('change', function() {
-        // Optional: Add visual feedback but don't block submission
         if (this.checked) {
             this.parentElement.classList.add('text-success');
         } else {
             this.parentElement.classList.remove('text-success');
         }
+        updateSubmitButton();
     });
 
     motif.addEventListener('input', updateCharCount);
@@ -533,10 +537,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Final validation before submission
         const hasDates = dateDebut.value && dateFin.value;
         const hasType = typeSelect.value && typeSelect.value.trim() !== '';
+        const isConfirmed = confirmCheck.checked;
         
-        if (!hasDates || !hasType) {
+        if (!hasDates || !hasType || !isConfirmed) {
             e.preventDefault();
-            alert('Veuillez remplir tous les champs obligatoires.');
+            alert('Veuillez remplir tous les champs obligatoires et confirmer les informations.');
             return;
         }
         
