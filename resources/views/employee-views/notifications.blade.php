@@ -17,14 +17,7 @@
                     </h1>
                     <p class="text-muted mb-0">Gérez vos notifications et restez informé</p>
                 </div>
-                <div class="d-flex">
-                    <button class="btn btn-outline-primary mr-2" onclick="markAllAsRead()">
-                        <i class="fas fa-check-double mr-1"></i>Tout marquer comme lu
-                    </button>
-                    <button class="btn btn-outline-danger" onclick="clearAllNotifications()">
-                        <i class="fas fa-trash mr-1"></i>Effacer tout
-                    </button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -37,7 +30,7 @@
                     <div class="stats-icon bg-gradient-primary mb-3">
                         <i class="fas fa-bell text-white"></i>
                     </div>
-                    <h2 class="text-primary mb-1">{{ $notifications->count() }}</h2>
+                    <h2 id="stats-total" class="text-primary mb-1">{{ $stats['total'] }}</h2>
                     <p class="text-muted mb-0">Total Notifications</p>
                 </div>
             </div>
@@ -48,7 +41,7 @@
                     <div class="stats-icon bg-gradient-warning mb-3">
                         <i class="fas fa-exclamation text-white"></i>
                     </div>
-                    <h2 class="text-warning mb-1">{{ $notifications->where('read_at', null)->count() }}</h2>
+                    <h2 id="stats-unread" class="text-warning mb-1">{{ $stats['unread'] }}</h2>
                     <p class="text-muted mb-0">Non lues</p>
                 </div>
             </div>
@@ -59,7 +52,7 @@
                     <div class="stats-icon bg-gradient-success mb-3">
                         <i class="fas fa-check text-white"></i>
                     </div>
-                    <h2 class="text-success mb-1">{{ $notifications->where('read_at', '!=', null)->count() }}</h2>
+                    <h2 id="stats-read" class="text-success mb-1">{{ $stats['read'] }}</h2>
                     <p class="text-muted mb-0">Lues</p>
                 </div>
             </div>
@@ -70,57 +63,14 @@
                     <div class="stats-icon bg-gradient-info mb-3">
                         <i class="fas fa-calendar text-white"></i>
                     </div>
-                    <h2 class="text-info mb-1">{{ $notifications->where('created_at', '>=', now()->subDays(7))->count() }}</h2>
+                    <h2 class="text-info mb-1">{{ $stats['this_week'] }}</h2>
                     <p class="text-muted mb-0">Cette semaine</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Filters -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card border-0 shadow-lg">
-                <div class="card-body p-3">
-                    <div class="row align-items-center">
-                        <div class="col-md-3">
-                            <select class="form-control" id="statusFilter">
-                                <option value="">Tous les statuts</option>
-                                <option value="unread">Non lues</option>
-                                <option value="read">Lues</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control" id="typeFilter">
-                                <option value="">Tous les types</option>
-                                <option value="conge">Congés</option>
-                                <option value="system">Système</option>
-                                <option value="reminder">Rappels</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control" id="dateFilter">
-                                <option value="">Toutes les dates</option>
-                                <option value="today">Aujourd'hui</option>
-                                <option value="week">Cette semaine</option>
-                                <option value="month">Ce mois</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="searchFilter" placeholder="Rechercher...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="clearFilters()">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Notifications List -->
     <div class="row">
@@ -178,20 +128,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="notification-actions">
-                                                @if(!$notification->read_at)
-                                                    <button class="btn btn-sm btn-outline-success mr-1" 
-                                                            onclick="markAsRead({{ $notification->id }})" 
-                                                            title="Marquer comme lu">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                @endif
-                                                <button class="btn btn-sm btn-outline-danger" 
-                                                        onclick="deleteNotification({{ $notification->id }})" 
-                                                        title="Supprimer">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
+                                            
                                         </div>
                                         
                                         @if(isset($notification->data['action_url']))
@@ -203,6 +140,14 @@
                                                 </a>
                                             </div>
                                         @endif
+                                        <div class="notification-actions">
+                                            @if(!$notification->read_at)
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-outline-success mr-1" onclick="markAsRead('{{ $notification->id }}')" title="Marquer comme lu">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            @endif
+                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -490,8 +435,14 @@ function markAsRead(notificationId) {
             notification.querySelector('p').classList.add('text-muted');
             notification.querySelector('.notification-icon').classList.add('bg-secondary');
             
+            // Remove the 'mark as read' button
+            const markAsReadButton = notification.querySelector('.notification-actions .btn-outline-success');
+            if (markAsReadButton) {
+                markAsReadButton.remove();
+            }
+
             // Update stats
-            updateNotificationStats();
+            updateNotificationStats('mark_read');
             
             Swal.fire({
                 icon: 'success',
@@ -545,7 +496,7 @@ function markAllAsRead() {
                         notification.querySelector('.notification-icon').classList.add('bg-secondary');
                     });
                     
-                    updateNotificationStats();
+                    updateNotificationStats('mark_all_read');
                     
                     Swal.fire({
                         icon: 'success',
@@ -595,7 +546,7 @@ function deleteNotification(notificationId) {
                     notification.style.animation = 'slideOut 0.3s ease';
                     setTimeout(() => {
                         notification.remove();
-                        updateNotificationStats();
+                        updateNotificationStats('delete');
                         
                         // Check if no notifications left
                         const remainingNotifications = document.querySelectorAll('.notification-item');
@@ -674,17 +625,30 @@ function refreshNotifications() {
     location.reload();
 }
 
-function updateNotificationStats() {
-    const totalNotifications = document.querySelectorAll('.notification-item').length;
-    const unreadNotifications = document.querySelectorAll('.notification-item.unread').length;
-    const readNotifications = document.querySelectorAll('.notification-item.read').length;
-    
-    // Update stats cards
-    const statsCards = document.querySelectorAll('.stats-card h2');
-    if (statsCards.length >= 3) {
-        statsCards[0].textContent = totalNotifications;
-        statsCards[1].textContent = unreadNotifications;
-        statsCards[2].textContent = readNotifications;
+function updateNotificationStats(action, isUnread) {
+    const totalEl = document.getElementById('stats-total');
+    const unreadEl = document.getElementById('stats-unread');
+    const readEl = document.getElementById('stats-read');
+
+    if (!totalEl || !unreadEl || !readEl) return;
+
+    let total = parseInt(totalEl.textContent);
+    let unread = parseInt(unreadEl.textContent);
+    let read = parseInt(readEl.textContent);
+
+    if (action === 'delete') {
+        totalEl.textContent = total - 1;
+        if (isUnread) {
+            unreadEl.textContent = unread - 1;
+        } else {
+            readEl.textContent = read - 1;
+        }
+    } else if (action === 'mark_read') {
+        unreadEl.textContent = unread - 1;
+        readEl.textContent = read + 1;
+    } else if (action === 'mark_all_read') {
+        readEl.textContent = total;
+        unreadEl.textContent = 0;
     }
 }
 

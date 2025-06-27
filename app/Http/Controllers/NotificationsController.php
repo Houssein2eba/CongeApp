@@ -16,12 +16,20 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        $notifications = Auth::user()
+        $user = Auth::user();
+        $notifications = $user
             ->notifications()
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        return view('employee-views.notifications', compact('notifications'));
+        $stats = [
+            'total' => $user->notifications()->count(),
+            'unread' => $user->unreadNotifications()->count(),
+            'this_week' => $user->notifications()->where('created_at', '>=', now()->subDays(7))->count(),
+        ];
+        $stats['read'] = $stats['total'] - $stats['unread'];
+
+        return view('employee-views.notifications', compact('notifications', 'stats'));
     }
 
     /**
